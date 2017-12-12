@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-success">
+                <div class="card-header">LIST</div>
+
+                {% if app.user != null %}
+                  <table class="table">
+                      <tr>
+                          <th>Character</th>
+                          <th>Real Name</th>
+                      </tr>
+
+                      {% for key, item in character %}
+                        <tr>
+                          <td>{{ key }}</td><td>{{ item }}</td>
+                        </tr>
+                      {% endfor %}
+                  </table>
+                {% endif %}
+
+
+            </div>
+
+            {% if app.user == null %}
+                <div class="alert alert-info" role="alert">
+                    This is a info alert with <a href="/login" class="alert-link">You need to login to see the list 😜😜 >></a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

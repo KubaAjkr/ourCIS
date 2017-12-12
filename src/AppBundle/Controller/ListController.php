@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ListController extends Controller
 {
    /**
-   * @Route("/", name="list")
+   * @Route("/list", name="list")
    */
     public function showAction(Request $request)
     {
@@ -26,6 +26,6 @@ class ListController extends Controller
           'Lord Varys'         => 'Conleth Hill'
         ];
 
-        return $this->render('default/index.html.twig', array('character' => $characters));
+        return $this->render('list/list.html.twig', array('character' => $characters));
     }
 }

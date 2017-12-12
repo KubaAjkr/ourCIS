@@ -4,36 +4,49 @@
 
 {% block body %}
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-success">
+
+
                 <div class="card-header">LIST</div>
 
                 {% if app.user != null %}
-                  <table class="table">
-                      <tr>
-                          <th>Character</th>
-                          <th>Real Name</th>
-                      </tr>
-
-                      {% for key, item in character %}
-                        <tr>
-                          <td>{{ key }}</td><td>{{ item }}</td>
-                        </tr>
-                      {% endfor %}
-                  </table>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Last Name</th>
+                                <th scope="col">Username</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>@fat</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td colspan="2">Larry the Bird</td>
+                                <td>@twitter</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 {% endif %}
 
 
-            </div>
+  
 
             {% if app.user == null %}
                 <div class="alert alert-info" role="alert">
                     This is a info alert with <a href="/login" class="alert-link">You need to login to see the list 😜😜 >></a>
                 </div>
             {% endif %}
-        </div>
-    </div>
-</div>
+
 {% endblock %}

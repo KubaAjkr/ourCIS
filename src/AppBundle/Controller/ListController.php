@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ListController extends Controller
 {
    /**
-   * @Route("/", name="welcome")
+   * @Route("/", name="list")
    */
     public function showAction(Request $request)
     {

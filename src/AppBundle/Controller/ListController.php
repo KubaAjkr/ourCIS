@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Tree;
+use Doctrine\ORM\EntityManager;
+use Doctrine\DBAL\SQLParserUtils;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -30,14 +32,24 @@ class ListController extends Controller
         
    
 {
-    $productId = 1;
-    $zaznam = $this->getDoctrine()
-        ->getRepository(Tree::class)
-        ->find($productId);
+    //$productId = 1;
+    //$zaznam = $this->getDoctrine()
+    //    ->getRepository(Tree::class)
+    //    ->find($productId);
+    
+        $em = $this->getDoctrine()->getManager();
+
+        $RAW_QUERY = 'SELECT * FROM tree where tree.id < 10;';
+        
+        $statement = $em->getConnection()->prepare($RAW_QUERY);
+        $statement->execute();
+
+        $zaznam = $statement->fetchAll();
+    
 
     if (!$zaznam) {
         throw $this->createNotFoundException(
-            'No product found for id '.$productId
+            'No product found for id '
         );
     }
 

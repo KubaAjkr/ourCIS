@@ -14,7 +14,7 @@ class ListController extends Controller {
     /**
      * @Route("/list", name="list")
      */
-    public function showAction(Request $request) { {
+    public function showAction(Request $request) { 
             //$productId = 1;
             //$zaznam = $this->getDoctrine()
             //    ->getRepository(Tree::class)
@@ -22,40 +22,26 @@ class ListController extends Controller {
 
             $contract = 771;
 
-            $em = $this->getDoctrine()->getManager();
 
-            $RAW_QUERY = 'SELECT item.id, item.contract_id, item.name, user.username, item.type_id, item.upper_id, item.variant_id FROM item LEFT JOIN user ON item.user_id = user.id where item.contract_id = ' . $contract . ';';
-
-            $statement = $em->getConnection()->prepare($RAW_QUERY);
-            $statement->execute();
-
-            $zaznam = $statement->fetchAll();
-            $row_contract = $statement->rowCount();
-
-            $RAW_QUERY = 'SELECT ROW_COUNT() FROM item;';
-
-            $statement = $em->getConnection()->prepare($RAW_QUERY);
-            $statement->execute();
-
-            $row_item = $statement->rowCount();
+        
+               $query = $this->get('doctrine')->getManager()
+                        ->createQuery(
+                                'SELECT i, u FROM AppBundle:Item i
+                                JOIN i.user u
+                                WHERE i.contract_id = :contractId'
+                        )->setParameter('contractId', $contract);
 
 
-            if (!$zaznam) {
-                throw $this->createNotFoundException(
-                        'Nic nenalezeno!'
-                );
-            }
-
-            // ... do something, like pass the $product object into a template
-        }
 
         return $this->render('list/list.html.twig', array(
-                    'ABC' => $zaznam,
                     'contract' => $contract,
-                    'row_contract' => $row_contract,
-                    'row_item' => $row_item
+                    'rows_contract' => 0,
+                    'rows_item' => 99999,
+                    'XXX' => $query->getResult()
         ));
         //return $this->render('list/list.html.twig', array('item' => new Item('1','jméno'));
     }
+
+
 
 }

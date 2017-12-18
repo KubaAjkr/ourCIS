@@ -5,6 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 //use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 //use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use AppBundle\Entity\User as User;
 
 
 /**
@@ -46,11 +47,21 @@ class Item //implements UserInterface
     
   
     
-     /**
-     * @ORM\Column(type="integer")
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="items")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    protected $user_id;
-
+    private $user;
+    
+    
+    public function getUser()
+    {
+        return $this->user;
+    }
+        public function setUser($user)
+    {
+        $this->user = $user;
+    }
 
     public function getId()
     {
@@ -113,7 +124,7 @@ class Item //implements UserInterface
         public function setUserId($user_id)
     {
         $this->user_id = $user_id;
-    }
+}
     
         public function getUserId()
     {

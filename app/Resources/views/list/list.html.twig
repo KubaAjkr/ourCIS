@@ -24,11 +24,11 @@
            
             <div>        
                 <span class="badge badge-secondary">
-                    {{ row_contract }} 
+                    {{ rows_contract }} 
                 </span>
                 / 
                 <span class="badge badge-dark">
-                    {{ row_item }}
+                    {{ rows_item }}
                 </span>
             </div>
         </div>
@@ -48,14 +48,14 @@
                 </tr>
             </thead>
             <tbody>
-                {% for row in ABC %}
+                {% for row in XXX %}
                     <tr>
                         <td>{{ row.id }}</td>
                         <td>{{ row.name }}</td>
-                        <td>{{ row.type_id }}</td>
-                        <td>{{ row.upper_id }}</td>
-                        <td>{{ row.variant_id }}</td>
-                        <td>{{ row.username }}</td>
+                        <td>{{ row.typeId }}</td>
+                        <td>{{ row.upperId }}</td>
+                        <td>{{ row.variantId }}</td>
+                        <td>{{ row.user.username }}</td>
                         <td></td>
                     </tr>
                 {% endfor %}

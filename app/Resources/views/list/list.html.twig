@@ -6,36 +6,71 @@
 
 
 
-                <div class="card-header">LIST</div>
-
-                {% if app.user != null %}
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">Pol.</th>
-                                <th scope="col">Název</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for row in ABC %}
-                            <tr>
-                                <td>{{ row.id }}</td>
-                                <td>{{ row.name }}</td>
-                                <td></td>
-                            </tr>
-                            {% endfor %}
-
-                        </tbody>
-                    </table>
-                {% endif %}
+    <div class="card-header">
 
 
-  
+        <div class="row">
+            <div>
+                <label for="exampleFormControlSelect1">Zakázka: </label>
+            </div>
+          
+                <select class="form-control col-md-1 control-label" id="ContractId">
+                    <option>{{ contract }}</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+           
+            <div>        
+                <span class="badge badge-secondary">
+                    {{ row_contract }} 
+                </span>
+                / 
+                <span class="badge badge-dark">
+                    {{ row_tree }}
+                </span>
+            </div>
+        </div>
 
-            {% if app.user == null %}
-                <div class="alert alert-info" role="alert">
-                    This is a info alert with <a href="/login" class="alert-link">You need to login to see the list 😜😜 >></a>
-                </div>
-            {% endif %}
+    </div>
+
+    {% if app.user != null %}
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Pol.</th>
+                    <th scope="col">Název</th>
+                    <th scope="col">Typ</th>
+                    <th scope="col">Nadřazená pol.</th>
+                    <th scope="col">Varianta</th>
+                    <th scope="col">Uživatel</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in ABC %}
+                    <tr>
+                        <td>{{ row.id }}</td>
+                        <td>{{ row.name }}</td>
+                        <td>{{ row.type_id }}</td>
+                        <td>{{ row.upper_id }}</td>
+                        <td>{{ row.variant_id }}</td>
+                        <td>{{ row.username }}</td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    {% endif %}
+
+
+
+
+    {% if app.user == null %}
+        <div class="alert alert-info" role="alert">
+            This is a info alert with <a href="/login" class="alert-link">You need to login to see the list 😜😜 >></a>
+        </div>
+    {% endif %}
 
 {% endblock %}

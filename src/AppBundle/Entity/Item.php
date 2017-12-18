@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  */
-class Tree //implements UserInterface
+class Item //implements UserInterface
 {
     /**
      * @ORM\Id;

@@ -24,7 +24,7 @@ class ListController extends Controller {
 
             $em = $this->getDoctrine()->getManager();
 
-            $RAW_QUERY = 'SELECT tree.id, tree.contract_id, tree.name, user.username, tree.type_id, tree.upper_id, tree.variant_id FROM tree LEFT JOIN user ON tree.user_id = user.id where tree.contract_id = ' . $contract . ';';
+            $RAW_QUERY = 'SELECT item.id, item.contract_id, item.name, user.username, item.type_id, item.upper_id, item.variant_id FROM item LEFT JOIN user ON item.user_id = user.id where item.contract_id = ' . $contract . ';';
 
             $statement = $em->getConnection()->prepare($RAW_QUERY);
             $statement->execute();
@@ -32,12 +32,12 @@ class ListController extends Controller {
             $zaznam = $statement->fetchAll();
             $row_contract = $statement->rowCount();
 
-            $RAW_QUERY = 'SELECT ROW_COUNT() FROM tree;';
+            $RAW_QUERY = 'SELECT ROW_COUNT() FROM item;';
 
             $statement = $em->getConnection()->prepare($RAW_QUERY);
             $statement->execute();
 
-            $row_tree = $statement->rowCount();
+            $row_item = $statement->rowCount();
 
 
             if (!$zaznam) {
@@ -53,9 +53,9 @@ class ListController extends Controller {
                     'ABC' => $zaznam,
                     'contract' => $contract,
                     'row_contract' => $row_contract,
-                    'row_tree' => $row_tree
+                    'row_item' => $row_item
         ));
-        //return $this->render('list/list.html.twig', array('tree' => new Tree('1','jméno'));
+        //return $this->render('list/list.html.twig', array('item' => new Item('1','jméno'));
     }
 
 }

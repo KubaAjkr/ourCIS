@@ -34,7 +34,7 @@
         </div>
 
     </div>
-
+    {% set i=1 %}
     {% if app.user != null %}
         <table class="table table-hover">
             <thead>
@@ -49,34 +49,30 @@
             </thead>
 
             {% for row in XXX %}    
-                <div id="exampleAccordion" data-children=".item">
-                    <div class="item">
-                        <tr>
-                            <td>{{ row.id }}</td>
-                            <td>
-                                <a data-toggle="collapse" data-parent="#exampleAccordion" href="#exampleAccordion1" aria-expanded="true" aria-controls="exampleAccordion1">
+
+                <tr>
+                    <td>{{ row.id }}</td>
+                    <td>
+                        <div id="exampleAccordion" data-children=".item">
+                            <div class="item">
+                                <a data-toggle="collapse" data-parent="#exampleAccordion" href="#exampleAccordion{{i}}" aria-expanded="true" aria-controls="exampleAccordion{{i}}">
                                     {{ row.name }}
                                 </a>
-                            </td>
-                            <td>{{ row.typeId }}</td>
-                            <td>{{ row.upperId }}</td>
-                            <td>{{ row.variantId }}</td>
-                            <td>{{ row.user.username }}</td>
-                            <td></td>
-                        </tr> 
-                        <tr>
-                            <td></td>
-                            <td>
-                                <div id="exampleAccordion1" class="collapse show" role="tabpanel">
+                                <div id="exampleAccordion{{i}}" class="collapse" role="tabpanel">
 
                                     Varianty .......
 
                                 </div>
-                            </td>
-                        </tr>
-
-                    </div>
-                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>{{ row.typeId }}</td>
+                    <td>{{ row.upperId }}</td>
+                    <td>{{ row.variantId }}</td>
+                    <td>{{ row.user.username }}</td>
+                    <td></td>
+                </tr> 
+                {% set i=i+1 %}                  
             {% endfor %}
 
         </table>

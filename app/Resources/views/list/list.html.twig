@@ -45,6 +45,7 @@
                     <th scope="col">Nadřazená pol.</th>
                     <th scope="col">Varianta</th>
                     <th scope="col">Uživatel</th>
+                    <th scope="col">Odsazení</th>
                 </tr>
             </thead>
 
@@ -66,11 +67,11 @@
                             </div>
                         </div>
                     </td>
-                    <td>{{ row.typeId }}</td>
+                    <td>{{ row.type.code }}</td>
                     <td>{{ row.upperId }}</td>
                     <td>{{ row.variantId }}</td>
                     <td>{{ row.user.username }}</td>
-                    <td></td>
+                    <td>{{ row.indentation }}</td>
                 </tr> 
                 {% set i=i+1 %}                  
             {% endfor %}

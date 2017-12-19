@@ -24,14 +24,24 @@ class ListController extends Controller {
                                 JOIN i.user u
                                 WHERE i.contract_id = :contractId'
                         )->setParameter('contractId', $contract);
-
+               
+               $XXX = $query->getResult();
+               
+               foreach($XXX as $item) {
+                   $upper_id = $item->getUpperId();
+                   dump($upper_id);
+                   foreach($XXX as $ite) {
+                       if ($ite->getId() === $upper_id) {
+                           $item->setIndentation($ite->getIndentation()+1);
+                           dump($item->getIndentation());
+                       }
+                   }         
+               }
         return $this->render('list/list.html.twig', array(
                     'contract' => $contract,
                     'rows_contract' => 0,
-                    'rows_item' => 99999,
-                    'XXX' => $query->getResult()
+                    'rows_item' => 9999,
+                    'XXX' => $XXX
         ));
-        //return $this->render('list/list.html.twig', array('item' => new Item('1','jméno'));
     }
-
 }

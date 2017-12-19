@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 //use Symfony\Component\Validator\Constraints as Assert;
 //use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use AppBundle\Entity\User as User;
+use AppBundle\Entity\Type as Type;
 
 
 /**
@@ -45,6 +46,11 @@ class Item //implements UserInterface
      */
     protected $variant_id;
     
+    /**
+     * @ORM\ManyToOne(targetEntity="Type", inversedBy="items")
+     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
+     */
+    private $type;
   
     
     /**
@@ -52,6 +58,19 @@ class Item //implements UserInterface
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
+    
+    
+    public $indentation; //odsazení
+    
+    
+    public function getType()
+    {
+        return $this->type;
+    }
+        public function setType(\Type $type = null)
+    {
+        $this->type = $type;
+    }
     
     
     public function getUser()
@@ -106,6 +125,16 @@ class Item //implements UserInterface
         public function getUpperId()
     {
         return $this->upper_id;
+    }  
+    
+          public function setIndentation($indentation)
+    {
+        $this->indentation = $indentation;
+    }
+    
+        public function getIndentation()
+    {
+        return $this->indentation;
     }  
     
     public function setVariantId($variant_id)

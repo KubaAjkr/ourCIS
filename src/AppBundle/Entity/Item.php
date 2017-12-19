@@ -3,7 +3,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 //use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
+//use Symfony\Component\Validator\Constraints as Assert;
 //use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use AppBundle\Entity\User as User;
 
@@ -58,7 +58,7 @@ class Item //implements UserInterface
     {
         return $this->user;
     }
-        public function setUser($user)
+        public function setUser(\User $user = null)
     {
         $this->user = $user;
     }

@@ -15,23 +15,15 @@ class ListController extends Controller {
      * @Route("/list", name="list")
      */
     public function showAction(Request $request) { 
-            //$productId = 1;
-            //$zaznam = $this->getDoctrine()
-            //    ->getRepository(Tree::class)
-            //    ->find($productId);
 
             $contract = 771;
 
-
-        
                $query = $this->get('doctrine')->getManager()
                         ->createQuery(
                                 'SELECT i, u FROM AppBundle:Item i
                                 JOIN i.user u
                                 WHERE i.contract_id = :contractId'
                         )->setParameter('contractId', $contract);
-
-
 
         return $this->render('list/list.html.twig', array(
                     'contract' => $contract,
@@ -41,7 +33,5 @@ class ListController extends Controller {
         ));
         //return $this->render('list/list.html.twig', array('item' => new Item('1','jméno'));
     }
-
-
 
 }

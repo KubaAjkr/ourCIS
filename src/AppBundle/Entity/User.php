@@ -46,7 +46,7 @@ class User implements UserInterface
     protected $password;
     
     /**
-     * @ORM\OneToMany(targetEntity="Item", mappedBy="type")
+     * @ORM\OneToMany(targetEntity="Item", mappedBy="user")
      */
     private $items;
 
@@ -54,6 +54,8 @@ class User implements UserInterface
     {
         $this->items = new ArrayCollection();
     }
+    
+    
 
     public function eraseCredentials()
     {

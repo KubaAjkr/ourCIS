@@ -146,10 +146,7 @@ class Item //implements UserInterface
     {
         return $this->variant_id;
     }  
-    
    
- 
-    
         public function setUserId($user_id)
     {
         $this->user_id = $user_id;

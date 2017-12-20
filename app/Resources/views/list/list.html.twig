@@ -56,6 +56,11 @@
                     <td>
                         <div id="exampleAccordion" data-children=".item">
                             <div class="item">
+                                {% if row.indentation != 0 %}
+                                {% for ods in 1..row.indentation %}
+                                    -
+                                {% endfor %}
+                                {% endif %}
                                 <a data-toggle="collapse" data-parent="#exampleAccordion" href="#exampleAccordion{{i}}" aria-expanded="true" aria-controls="exampleAccordion{{i}}">
                                     {{ row.name }}
                                 </a>
@@ -78,11 +83,7 @@
 
         </table>
     {% endif %}
-
-
-
-
-
+    
     {% if app.user == null %}
         <div class="alert alert-info" role="alert">
             This is a info alert with <a href="/login" class="alert-link">K aplikaci je třeba se přihlásit >></a>

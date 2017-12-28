@@ -34,56 +34,133 @@
         </div>
 
     </div>
+
     {% set i=1 %}
     {% if app.user != null %}
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">Pol.</th>
-                    <th scope="col">Název</th>
-                    <th scope="col">Typ</th>
-                    <th scope="col">Nadřazená pol.</th>
-                    <th scope="col">Varianta</th>
-                    <th scope="col">Uživatel</th>
-                    <th scope="col">Odsazení</th>
-                </tr>
-            </thead>
 
-            {% for row in XXX %}    
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-1">
+                    #
+                </div>
+                <div class="col">
+                    Název
+                </div>
+                <div class="col-md-auto">
+                    Typ
+                </div>
+                <div class="col-1">
+                    Uživatel
+                </div>
+                <div class="col-xs-1">
+                    5 of 12
+                </div>
+                <div class="col-1">
+                    6 of 12
+                </div>
+                <div class="col-1">
+                    7 of 12
+                </div>
+                <div class="col-1">
+                    8 of 12
+                </div>
+                <div class="col-1">
+                    9 of 12
+                </div>
+                <div class="col-1">
+                    10 of 12
+                </div>
+                <div class="col-1">
+                    11 of 12
+                </div>
+                <div class="col-1">
+                    12 of 12
+                </div>
+            </div>
+            </br>
+            <div class="row">
+                <div class="col">
+                    1 of 3
+                </div>
+                <div class="col">
+                    2 of 3
+                </div>
+                <div class="col">
+                    3 of 3
+                </div>
+            </div>
+            </br>
 
-                <tr>
-                    <td>{{ row.id }}</td>
-                    <td>
-                        <div id="exampleAccordion" data-children=".item">
-                            <div class="item">
-                                {% if row.indentation != 0 %}
-                                {% for ods in 1..row.indentation %}
-                                    -
+
+
+
+
+
+            {% for row in XXX %}  
+
+                <div class="row">
+                    <div class="col-xs-1">
+                        {{ row.id }}
+                    </div>
+                    <div class="col">
+
+                        <div class="row">
+                                {%if row.lvl > 0 %}
+                                {% for ind in 1..row.lvl %}
+                                
+                                <div class="col col-sm-1">                                 
+                                </div>       
                                 {% endfor %}
                                 {% endif %}
-                                <a data-toggle="collapse" data-parent="#exampleAccordion" href="#exampleAccordion{{i}}" aria-expanded="false" aria-controls="exampleAccordion{{i}}">
-                                    {{ row.name }}
-                                </a>
-                                <div id="exampleAccordion{{i}}" class="collapse" role="tabpanel">
+                            <div class="col col-sm">
+                                
+                                {{ row.title }}
 
-                                    Varianty .......
-
-                                </div>
                             </div>
                         </div>
-                    </td>
-                    <td>{{ row.type.code }}</td>
-                    <td>{{ row.upperId }}</td>
-                    <td>{{ row.variantId }}</td>
-                    <td>{{ row.user.username }}</td>
-                    <td>{{ row.indentation }}</td>
-                </tr> 
+                    </div>
+                    <div class="col-md-auto">
+                        {{ row.type.code }}
+                    </div>
+                    <div class="col-1">
+                        {{ row.user.username }}
+                    </div>
+                    <div class="col-xs-1">
+                        5 of 12
+                    </div>
+                    <div class="col-1">
+                        6 of 12
+                    </div>
+                    <div class="col-1">
+                        7 of 12
+                    </div>
+                    <div class="col-1">
+                        8 of 12
+                    </div>
+                    <div class="col-1">
+                        9 of 12
+                    </div>
+                    <div class="col-1">
+                        10 of 12
+                    </div>
+                    <div class="col-1">
+                        11 of 12
+                    </div>
+                    <div class="col-1">
+                        12 of 12
+                    </div>
+                </div>
+
                 {% set i=i+1 %}                  
+
             {% endfor %}
 
-        </table>
-    {% endif %}
-    
+
+        {% endif %}
+
+    </div>
+    {#{{ tree|raw }}#}
+
     {% if app.user == null %}
         <div class="alert alert-info" role="alert">
             This is a info alert with <a href="/login" class="alert-link">K aplikaci je třeba se přihlásit >></a>

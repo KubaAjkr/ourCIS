@@ -3,8 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Item;
-use AppBundle\Entity\Category;
-
+use AppBundle\Entity\User;
+use AppBundle\Entity\Type;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,25 +12,23 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class ListController extends Controller {
 
-    
     private $list;
     private $em;
-    
-    
+
     private function getDataFromDB($contract) {
-              
+
         $query = $this->get('doctrine')->getManager()
                         ->createQuery(
                                 'SELECT i, u FROM AppBundle:Item i
                                 JOIN i.user u
-                                WHERE i.contract_id = :contractId '                              
+                                WHERE i.contract_id = :contractId '
                         )->setParameter('contractId', $contract);
 
-        $this->list = $query->getResult(); 
+        $this->list = $query->getResult();
     }
-    
+
     private function setIndentation() {
-        
+
         foreach ($this->list as $item) {
             $upper_id = $item->getUpperId();
 
@@ -42,61 +40,99 @@ class ListController extends Controller {
             } elseif ($upper_id === 0) {
                 $item->setIndentation(0);
             } else {
-                dump("chybné upper_id záznamu ".$item->getId());
+                dump("chybné upper_id záznamu " . $item->getId());
             }
         }
     }
-    
-    
+
     /**
      * @Route("/list", name="list")
      */
     public function showAction(Request $request) {
-        
-        $this->em = $this->getDoctrine()->getManager();
-        
-        if ($this->get('session')->get('vykresleno') === NULL) {
-            
-            
-            
-            $food = new Category();
-            $food->setTitle('Food');
 
-            $fruits = new Category();
-            $fruits->setTitle('Fruits');
-            $fruits->setParent($food);
+        $em = $this->getDoctrine()->getManager();
 
-            $vegetables = new Category();
-            $vegetables->setTitle('Vegetables');
-            $vegetables->setParent($food);
+        /*
+         * Případné naplnění tabulky Item
+         * 
+         *             
+          $user = $this->getDoctrine()
+          ->getRepository(User::class)
+          ->find(1);
 
-            $carrots = new Category();
-            $carrots->setTitle('Carrots');
-            $carrots->setParent($vegetables);
+          $type = new Type();
+          $type->setCode("TEST");
+          $type->setName("Test");
 
-            $this->em->persist($food);
-            $this->em->persist($fruits);
-            $this->em->persist($vegetables);
-            $this->em->persist($carrots);
-            $this->em->flush();
-            
-            $this->get('session')->set('vykresleno', TRUE);
-        }
+          $bagr = new Item();
+          $bagr->setTitle('KR5500Tk');
+          $bagr->setContract_id(1);
+          $bagr->setType($type);
+          $bagr->setUser($user);
 
-        
-        
+          $podvozek = new Item();
+          $podvozek->setTitle('Podvozek');
+          $podvozek->setParent($bagr);
+          $podvozek->setContract_id(1);
+          $podvozek->setType($type);
+          $podvozek->setUser($user);
 
- 
-        $contract = 771;
+          $housenice = new Item();
+          $housenice->setTitle('Housenice');
+          $housenice->setParent($podvozek);
+          $housenice->setContract_id(1);
+          $housenice->setType($type);
+          $housenice->setUser($user);
+
+          $ss = new Item();
+          $ss->setTitle('Spodní stavba');
+          $ss->setParent($bagr);
+          $ss->setContract_id(1);
+          $ss->setType($type);
+          $ss->setUser($user);
+
+          $em->persist($user);
+          $em->persist($type);
+          $em->persist($bagr);
+          $em->persist($podvozek);
+          $em->persist($housenice);
+          $em->persist($ss);
+          $em->flush();
+         * 
+         */
+
+        $contract = 1;
         $this->getDataFromDB($contract);
-        $this->setIndentation();
-
         
+
+
+        $repo = $em->getRepository(Item::class);
+        $options = array(
+            'decorate' => true,
+            'rootOpen' => '<ul class="list-group">',
+            'rootClose' => '</ul>',
+            'childOpen' => '<li class="list-group-item">',
+            'childClose' => '</li>',
+            'nodeDecorator' => function($node) {
+        return '<a href="/">'.$node['title'].'</a>'.$node['type_id'];
+    }
+
+            
+        );
+        $htmlTree = $repo->childrenHierarchy(
+                null, /* starting from root nodes */ 
+                false, /* false: load all children, true: only direct */ 
+                $options
+        );
+
+
         return $this->render('list/list.html.twig', array(
                     'contract' => $contract,
                     'rows_contract' => 0,
                     'rows_item' => 9999,
-                    'XXX' => $this->list
+                    'XXX' => $this->list,
+                    'tree' => $htmlTree
         ));
     }
+
 }

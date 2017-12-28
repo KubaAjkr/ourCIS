@@ -1,36 +1,74 @@
 <?php
 namespace AppBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
-//use Gedmo\Mapping\Annotation as Gedmo;
-//use Symfony\Component\Validator\Constraints as Assert;
-//use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use AppBundle\Entity\User as User;
-use AppBundle\Entity\Type as Type;
-
+use AppBundle\Entity\Item;
+use AppBundle\Entity\User;
 
 /**
- * @ORM\Entity
+ * @Gedmo\Tree(type="nested")
+ * use repository for handy tree functions
+ * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\NestedTreeRepository")
  */
 class Item //implements UserInterface
 {
-    /**
-     * @ORM\Id;
+    
+     /**
      * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Id
+     * @ORM\GeneratedValue
      */
-    protected $id;
-
+    private $id;
+    
     /**
      * @ORM\Column(type="integer")
      */
     protected $contract_id;
 
     /**
-     * @ORM\Column(type="string", length=256)
+     * @ORM\Column(length=64)
      */
-    protected $name;
+    private $title;
 
+    /**
+     * @Gedmo\TreeLeft
+     * @ORM\Column(type="integer")
+     */
+    private $lft;
+
+    /**
+     * @Gedmo\TreeLevel
+     * @ORM\Column(type="integer")
+     */
+    private $lvl;
+
+    /**
+     * @Gedmo\TreeRight
+     * @ORM\Column(type="integer")
+     */
+    private $rgt;
+
+    /**
+     * @Gedmo\TreeRoot
+     * @ORM\ManyToOne(targetEntity="Item")
+     * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $root;
+
+    /**
+     * @Gedmo\TreeParent
+     * @ORM\ManyToOne(targetEntity="Item", inversedBy="children")
+     * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Item", mappedBy="parent")
+     * @ORM\OrderBy({"lft" = "ASC"})
+     */
+    private $children;
+    
     /**
      * @ORM\Column(type="integer")
      */
@@ -39,12 +77,7 @@ class Item //implements UserInterface
     /**
      * @ORM\Column(type="integer")
      */
-    protected $upper_id;
-    
-    /**
-     * @ORM\Column(type="integer")
-     */
-    protected $variant_id;
+    protected $user_id;
     
     /**
      * @ORM\ManyToOne(targetEntity="Type", inversedBy="items")
@@ -58,109 +91,124 @@ class Item //implements UserInterface
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
-    
-    
-    public $indentation; //odsazení
-    
-    
-    public function getType()
-    {
-        return $this->type;
-    }
-        public function setType(\Type $type = null)
-    {
-        $this->type = $type;
-    }
-    
-    
-    public function getUser()
-    {
-        return $this->user;
-    }
-        public function setUser(\User $user = null)
-    {
-        $this->user = $user;
-    }
-
-    public function getId()
-    {
+   
+    public function getId() {
         return $this->id;
     }
-    
-    public function setContractId($contract_id)
-    {
-        $this->contract_id = $contract_id;
-    }
-    
-        public function getContractId()
-    {
+
+    public function getContract_id() {
         return $this->contract_id;
     }
 
-    public function setName($name)
-    {
-        $this->name = $name;
+    public function getTitle() {
+        return $this->title;
     }
 
-    public function getName()
-    {
-        return $this->name;
+    public function getLft() {
+        return $this->lft;
     }
 
-    public function setTypeId($type_id)
-    {
-        $this->type_id = $type_id;
+    public function getLvl() {
+        return $this->lvl;
     }
-    
-        public function getTypeId()
-    {
+
+    public function getRgt() {
+        return $this->rgt;
+    }
+
+    public function getRoot() {
+        return $this->root;
+    }
+
+    public function getParent() {
+        return $this->parent;
+    }
+
+    public function getChildren() {
+        return $this->children;
+    }
+
+    public function getType_id() {
         return $this->type_id;
     }
-    
-      public function setUpperId($upper_id)
-    {
-        $this->upper_id = $upper_id;
-    }
-    
-        public function getUpperId()
-    {
-        return $this->upper_id;
-    }  
-    
-          public function setIndentation($indentation)
-    {
-        $this->indentation = $indentation;
-    }
-    
-        public function getIndentation()
-    {
-        return $this->indentation;
-    }  
-    
-    public function setVariantId($variant_id)
-    {
-        $this->variant_id = $variant_id;
-    }
-    
-        public function getVariantId()
-    {
-        return $this->variant_id;
-    }  
-   
-        public function setUserId($user_id)
-    {
-        $this->user_id = $user_id;
-}
-    
-        public function getUserId()
-    {
+
+    public function getUser_id() {
         return $this->user_id;
-    }  
-    
-        public function getItem()
-    {
-            
-            
-        
     }
+
+    public function getType() {
+        return $this->type;
+    }
+
+    public function getUser() {
+        return $this->user;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function setContract_id($contract_id) {
+        $this->contract_id = $contract_id;
+        return $this;
+    }
+
+    public function setTitle($title) {
+        $this->title = $title;
+        return $this;
+    }
+
+    public function setLft($lft) {
+        $this->lft = $lft;
+        return $this;
+    }
+
+    public function setLvl($lvl) {
+        $this->lvl = $lvl;
+        return $this;
+    }
+
+    public function setRgt($rgt) {
+        $this->rgt = $rgt;
+        return $this;
+    }
+
+    public function setRoot($root) {
+        $this->root = $root;
+        return $this;
+    }
+
+    public function setParent($parent) {
+        $this->parent = $parent;
+        return $this;
+    }
+
+    public function setChildren($children) {
+        $this->children = $children;
+        return $this;
+    }
+
+    public function setType_id($type_id) {
+        $this->type_id = $type_id;
+        return $this;
+    }
+
+    public function setUser_id($user_id) {
+        $this->user_id = $user_id;
+        return $this;
+    }
+
+    public function setType($type) {
+        $this->type = $type;
+        return $this;
+    }
+
+    public function setUser($user) {
+        $this->user = $user;
+        return $this;
+    }
+
+
+   
 }

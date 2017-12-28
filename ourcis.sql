@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: 127.0.0.1
--- Vytvořeno: Čtv 28. pro 2017, 12:08
+-- Vytvořeno: Čtv 28. pro 2017, 22:48
 -- Verze serveru: 10.1.28-MariaDB
 -- Verze PHP: 7.1.11
 
@@ -25,13 +25,16 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktura tabulky `category`
+-- Struktura tabulky `item`
 --
 
-CREATE TABLE `category` (
+CREATE TABLE `item` (
   `id` int(11) NOT NULL,
   `root_id` int(11) DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
+  `type_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `contract_id` int(11) NOT NULL,
   `title` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `lft` int(11) NOT NULL,
   `lvl` int(11) NOT NULL,
@@ -39,38 +42,14 @@ CREATE TABLE `category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Vypisuji data pro tabulku `category`
+-- Vypisuji data pro tabulku `item`
 --
 
-INSERT INTO `category` (`id`, `root_id`, `parent_id`, `title`, `lft`, `lvl`, `rgt`) VALUES
-(1, 1, NULL, 'Food', 1, 0, 8),
-(2, 1, 1, 'Fruits', 2, 1, 3),
-(3, 1, 1, 'Vegetables', 4, 1, 7),
-(4, 1, 3, 'Carrots', 5, 2, 6),
-(5, 5, NULL, 'Food', 1, 0, 8),
-(6, 5, 5, 'Fruits', 2, 1, 3),
-(7, 5, 5, 'Vegetables', 4, 1, 7),
-(8, 5, 7, 'Carrots', 5, 2, 6),
-(9, 9, NULL, 'Food', 1, 0, 8),
-(10, 9, 9, 'Fruits', 2, 1, 3),
-(11, 9, 9, 'Vegetables', 4, 1, 7),
-(12, 9, 11, 'Carrots', 5, 2, 6);
-
--- --------------------------------------------------------
-
---
--- Struktura tabulky `item`
---
-
-CREATE TABLE `item` (
-  `id` int(11) NOT NULL,
-  `type_id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `contract_id` int(11) NOT NULL,
-  `name` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
-  `upper_id` int(11) NOT NULL,
-  `variant_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+INSERT INTO `item` (`id`, `root_id`, `parent_id`, `type_id`, `user_id`, `contract_id`, `title`, `lft`, `lvl`, `rgt`) VALUES
+(1, 1, NULL, 30, 1, 1, 'KR5500Tk', 1, 0, 8),
+(2, 1, 1, 30, 1, 1, 'Podvozek', 2, 1, 5),
+(3, 1, 2, 30, 1, 1, 'Housenice', 3, 2, 4),
+(4, 1, 1, 30, 1, 1, 'Spodní stavba', 6, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -83,6 +62,34 @@ CREATE TABLE `type` (
   `name` varchar(381) COLLATE utf8_unicode_ci NOT NULL,
   `code` varchar(4) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Vypisuji data pro tabulku `type`
+--
+
+INSERT INTO `type` (`id`, `name`, `code`) VALUES
+(5, 'Test', 'TEST'),
+(7, 'Test', 'TEST'),
+(9, 'Test', 'TEST'),
+(10, 'Test', 'TEST'),
+(11, 'Test', 'TEST'),
+(13, 'Test', 'TEST'),
+(14, 'Test', 'TEST'),
+(16, 'Test', 'TEST'),
+(18, 'Test', 'TEST'),
+(19, 'Test', 'TEST'),
+(20, 'Test', 'TEST'),
+(21, 'Test', 'TEST'),
+(22, 'Test', 'TEST'),
+(23, 'Test', 'TEST'),
+(24, 'Test', 'TEST'),
+(25, 'Test', 'TEST'),
+(27, 'Test', 'TEST'),
+(28, 'Test', 'TEST'),
+(29, 'Test', 'TEST'),
+(30, 'Test', 'TEST'),
+(31, 'Test', 'TEST'),
+(32, 'Test', 'TEST');
 
 -- --------------------------------------------------------
 
@@ -110,18 +117,12 @@ INSERT INTO `user` (`id`, `email`, `username`, `role`, `password`) VALUES
 --
 
 --
--- Klíče pro tabulku `category`
---
-ALTER TABLE `category`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `IDX_64C19C179066886` (`root_id`),
-  ADD KEY `IDX_64C19C1727ACA70` (`parent_id`);
-
---
 -- Klíče pro tabulku `item`
 --
 ALTER TABLE `item`
   ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_1F1B251E79066886` (`root_id`),
+  ADD KEY `IDX_1F1B251E727ACA70` (`parent_id`),
   ADD KEY `IDX_1F1B251EC54C8C93` (`type_id`),
   ADD KEY `IDX_1F1B251EA76ED395` (`user_id`);
 
@@ -136,51 +137,40 @@ ALTER TABLE `type`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`);
+  ADD UNIQUE KEY `UNIQ_8D93D649F85E0677` (`username`);
 
 --
 -- AUTO_INCREMENT pro tabulky
 --
 
 --
--- AUTO_INCREMENT pro tabulku `category`
---
-ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
 -- AUTO_INCREMENT pro tabulku `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT pro tabulku `type`
 --
 ALTER TABLE `type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT pro tabulku `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Omezení pro exportované tabulky
 --
 
 --
--- Omezení pro tabulku `category`
---
-ALTER TABLE `category`
-  ADD CONSTRAINT `FK_64C19C1727ACA70` FOREIGN KEY (`parent_id`) REFERENCES `category` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_64C19C179066886` FOREIGN KEY (`root_id`) REFERENCES `category` (`id`) ON DELETE CASCADE;
-
---
 -- Omezení pro tabulku `item`
 --
 ALTER TABLE `item`
+  ADD CONSTRAINT `FK_1F1B251E727ACA70` FOREIGN KEY (`parent_id`) REFERENCES `item` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_1F1B251E79066886` FOREIGN KEY (`root_id`) REFERENCES `item` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_1F1B251EA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `FK_1F1B251EC54C8C93` FOREIGN KEY (`type_id`) REFERENCES `type` (`id`);
 COMMIT;

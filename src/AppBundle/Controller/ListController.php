@@ -8,11 +8,14 @@ use AppBundle\Entity\Category;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class ListController extends Controller {
 
     
-    protected $list;
+    private $list;
+    private $em;
+    
     
     private function getDataFromDB($contract) {
               
@@ -50,31 +53,40 @@ class ListController extends Controller {
      */
     public function showAction(Request $request) {
         
-        $em = $this->getDoctrine()->getManager();
+        $this->em = $this->getDoctrine()->getManager();
         
-        $food = new Category();
-        $food->setTitle('Food');
+        if ($this->get('session')->get('vykresleno') === NULL) {
+            
+            
+            
+            $food = new Category();
+            $food->setTitle('Food');
 
-        $fruits = new Category();
-        $fruits->setTitle('Fruits');
-        $fruits->setParent($food);
+            $fruits = new Category();
+            $fruits->setTitle('Fruits');
+            $fruits->setParent($food);
 
-        $vegetables = new Category();
-        $vegetables->setTitle('Vegetables');
-        $vegetables->setParent($food);
+            $vegetables = new Category();
+            $vegetables->setTitle('Vegetables');
+            $vegetables->setParent($food);
 
-        $carrots = new Category();
-        $carrots->setTitle('Carrots');
-        $carrots->setParent($vegetables);
+            $carrots = new Category();
+            $carrots->setTitle('Carrots');
+            $carrots->setParent($vegetables);
 
-        $em->persist($food);
-        $em->persist($fruits);
-        $em->persist($vegetables);
-        $em->persist($carrots);
-        $em->flush();
+            $this->em->persist($food);
+            $this->em->persist($fruits);
+            $this->em->persist($vegetables);
+            $this->em->persist($carrots);
+            $this->em->flush();
+            
+            $this->get('session')->set('vykresleno', TRUE);
+        }
+
         
         
 
+ 
         $contract = 771;
         $this->getDataFromDB($contract);
         $this->setIndentation();

@@ -3,7 +3,7 @@ security:
         AppBundle\Entity\User: bcrypt
     providers:
         database_users:
-            entity: { class: AppBundle:User, property: email }
+            entity: { class: AppBundle:User, property: username }
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:

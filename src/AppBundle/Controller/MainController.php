@@ -13,12 +13,7 @@ class MainController extends Controller
    */
     public function showAction(Request $request)
     {
-        $characters = [
-          'Daenerys Targaryen' => 'Emilia Clarke',
-          'Jon Snow'           => 'Kit Harington',
-
-        ];
-
-        return $this->render('default/index.html.twig', array('character' => $characters));
+       
+        return $this->render('default/index.html.twig', array('aaa' => NULL));
     }
 }

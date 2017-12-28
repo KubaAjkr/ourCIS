@@ -31,21 +31,21 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
           return;
         }
 
-        $email = $request->request->get('_email');
-        $request->getSession()->set(Security::LAST_USERNAME, $email);
+        $username = $request->request->get('_username');
+        $request->getSession()->set(Security::LAST_USERNAME, $username);
         $password = $request->request->get('_password');
 
         return [
-            'email' => $email,
+            'username' => $username,
             'password' => $password,
         ];
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        $email = $credentials['email'];
+        $username = $credentials['username'];
 
-        return $userProvider->loadUserByUsername($email);
+        return $userProvider->loadUserByUsername($username);
     }
 
     public function checkCredentials($credentials, UserInterface $user)

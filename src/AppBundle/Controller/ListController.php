@@ -27,24 +27,6 @@ class ListController extends Controller {
         $this->list = $query->getResult();
     }
 
-    private function setIndentation() {
-
-        foreach ($this->list as $item) {
-            $upper_id = $item->getUpperId();
-
-            if ($upper_id != 0) {
-                $upper = $this->getDoctrine()
-                        ->getRepository(Item::class)
-                        ->find($upper_id);
-                $item->setIndentation($upper->getIndentation() + 1);
-            } elseif ($upper_id === 0) {
-                $item->setIndentation(0);
-            } else {
-                dump("chybné upper_id záznamu " . $item->getId());
-            }
-        }
-    }
-
     /**
      * @Route("/list", name="list")
      */
@@ -103,35 +85,13 @@ class ListController extends Controller {
 
         $contract = 1;
         $this->getDataFromDB($contract);
-        
-
-
-        $repo = $em->getRepository(Item::class);
-        $options = array(
-            'decorate' => true,
-            'rootOpen' => '<ul class="list-group">',
-            'rootClose' => '</ul>',
-            'childOpen' => '<li class="list-group-item">',
-            'childClose' => '</li>',
-            'nodeDecorator' => function($node) {
-        return '<a href="/">'.$node['title'].'</a>'.$node['type_id'];
-    }
-
-            
-        );
-        $htmlTree = $repo->childrenHierarchy(
-                null, /* starting from root nodes */ 
-                false, /* false: load all children, true: only direct */ 
-                $options
-        );
-
-
+ 
         return $this->render('list/list.html.twig', array(
                     'contract' => $contract,
                     'rows_contract' => 0,
                     'rows_item' => 9999,
-                    'XXX' => $this->list,
-                    'tree' => $htmlTree
+                    'XXX' => $this->list
+
         ));
     }
 

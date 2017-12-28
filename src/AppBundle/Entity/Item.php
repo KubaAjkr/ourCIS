@@ -156,4 +156,11 @@ class Item //implements UserInterface
     {
         return $this->user_id;
     }  
+    
+        public function getItem()
+    {
+            
+            
+        
+    }
 }

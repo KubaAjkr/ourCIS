@@ -3,8 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Item;
-use Doctrine\ORM\EntityManager;
-use Doctrine\DBAL\SQLParserUtils;
+use AppBundle\Entity\Category;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,23 +12,23 @@ use Symfony\Component\HttpFoundation\Request;
 class ListController extends Controller {
 
     
-    protected $XXX;
+    protected $list;
     
     private function getDataFromDB($contract) {
-        
+              
         $query = $this->get('doctrine')->getManager()
                         ->createQuery(
                                 'SELECT i, u FROM AppBundle:Item i
                                 JOIN i.user u
-                                WHERE i.contract_id = :contractId'
+                                WHERE i.contract_id = :contractId '                              
                         )->setParameter('contractId', $contract);
 
-        $this->XXX = $query->getResult(); 
+        $this->list = $query->getResult(); 
     }
     
     private function setIndentation() {
         
-        foreach ($this->XXX as $item) {
+        foreach ($this->list as $item) {
             $upper_id = $item->getUpperId();
 
             if ($upper_id != 0) {
@@ -49,6 +49,31 @@ class ListController extends Controller {
      * @Route("/list", name="list")
      */
     public function showAction(Request $request) {
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        $food = new Category();
+        $food->setTitle('Food');
+
+        $fruits = new Category();
+        $fruits->setTitle('Fruits');
+        $fruits->setParent($food);
+
+        $vegetables = new Category();
+        $vegetables->setTitle('Vegetables');
+        $vegetables->setParent($food);
+
+        $carrots = new Category();
+        $carrots->setTitle('Carrots');
+        $carrots->setParent($vegetables);
+
+        $em->persist($food);
+        $em->persist($fruits);
+        $em->persist($vegetables);
+        $em->persist($carrots);
+        $em->flush();
+        
+        
 
         $contract = 771;
         $this->getDataFromDB($contract);
@@ -59,8 +84,7 @@ class ListController extends Controller {
                     'contract' => $contract,
                     'rows_contract' => 0,
                     'rows_item' => 9999,
-                    'XXX' => $this->XXX
+                    'XXX' => $this->list
         ));
     }
-
 }

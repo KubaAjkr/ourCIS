@@ -21,7 +21,7 @@ class ImportController extends Controller {
         $error = "";
 
         $form = $this->createFormBuilder()
-                ->add('files', FileType::class, array('label' => 'Rozpad zakázky (.xlsx file) - podporována pouze verze 14'))
+                ->add('file', FileType::class, array('label' => 'Rozpad zakázky (.xlsx file) - podporována pouze verze 14'))
                 ->getForm();
 
         $form->handleRequest($request);
@@ -29,16 +29,18 @@ class ImportController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
 
             
-            $someNewFilename = 'import.xls';
-            $dir = '/ImportFiles/';
-            $form['files']->getData()->move($dir, $someNewFilename);
+            //$file = $form['file']->getData();
+            $NewFilename = 'lastImport.xlsx';
+            $dir = './ImportFiles/';
+            //$file->move($dir, $file->getClientOriginalName());
+            $form['file']->getData()->move($dir, $NewFilename);
 
 
             $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
             $reader->setLoadAllSheets();
             $reader->setReadDataOnly(true);
             
-            $spreadsheet = $reader->load($dir . $someNewFilename);
+            $spreadsheet = $reader->load($dir . $NewFilename);
             $spreadsheet->setActiveSheetIndex(0);
             //$spreadsheet->setActiveSheetIndexByName('DataSheet');
             $verRZ = $spreadsheet->getActiveSheet()->getCell('D3')->getValue();

@@ -14,6 +14,7 @@ class ListController extends Controller {
 
     private $list;
     private $em;
+    private $itemsRows;
 
     private function getDataFromDB($contract) {
 
@@ -25,6 +26,13 @@ class ListController extends Controller {
                         )->setParameter('contractId', $contract);
 
         $this->list = $query->getResult();
+        $query = $this->get('doctrine')->getManager()
+                        ->createQuery(
+                                'SELECT COUNT(i.id)FROM AppBundle:Item i
+                                JOIN i.user u
+                                WHERE i.contract_id = :contractId '
+                        )->setParameter('contractId', $contract);
+        $this->itemsRows = $query->getSingleScalarResult();
     }
 
     /**
@@ -89,7 +97,7 @@ class ListController extends Controller {
         return $this->render('list/list.html.twig', array(
                     'contract' => $contract,
                     'rows_contract' => 0,
-                    'rows_item' => 9999,
+                    'rows_item' => $this->itemsRows,
                     'XXX' => $this->list
 
         ));

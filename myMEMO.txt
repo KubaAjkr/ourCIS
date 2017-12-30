@@ -4,3 +4,6 @@ https://github.com/Atlantic18/DoctrineExtensions/blob/master/doc/tree.md#includi
 
 #Symfony
 http://symfony.com/
+
+#XLS integration
+https://phpspreadsheet.readthedocs.io/en/develop/

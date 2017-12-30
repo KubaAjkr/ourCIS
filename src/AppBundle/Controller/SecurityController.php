@@ -30,7 +30,7 @@ class SecurityController extends Controller
     public function loginCheckAction()
     {
 
-    }
+        }
 
     /**
      * @Route("/logout", name="logout")

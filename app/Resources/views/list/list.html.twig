@@ -43,18 +43,19 @@
                 <div class="col-xs-1">
                     #
                 </div>
+                <div class="col-md-auto">
+                    Skupina
+                </div>
                 <div class="col">
                     Název
                 </div>
-                <div class="col-md-auto">
+                <div class="col-1">
                     Typ
                 </div>
                 <div class="col-1">
                     Uživatel
                 </div>
-                <div class="col-xs-1">
-                    5 of 12
-                </div>
+
                 <div class="col-1">
                     6 of 12
                 </div>
@@ -102,6 +103,9 @@
                     <div class="col-xs-1">
                         {{ row.id }}
                     </div>
+                    <div class="col-md-auto">
+                        {{ row.group }}
+                    </div>
                     <div class="col">
 
                         <div class="row">
@@ -119,15 +123,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-auto">
+                    <div class="col-1">
                         {{ row.type.code }}
                     </div>
                     <div class="col-1">
                         {{ row.user.username }}
                     </div>
-                    <div class="col-xs-1">
-                        5 of 12
-                    </div>
+
                     <div class="col-1">
                         6 of 12
                     </div>

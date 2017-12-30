@@ -22,6 +22,11 @@ class Item //implements UserInterface
     private $id;
     
     /**
+     * @ORM\Column(length=8)
+     */
+    protected $group;
+    
+    /**
      * @ORM\Column(type="integer")
      */
     protected $contract_id;
@@ -206,6 +211,15 @@ class Item //implements UserInterface
 
     public function setUser($user) {
         $this->user = $user;
+        return $this;
+    }
+
+    public function getGroup() {
+        return $this->group;
+    }
+
+    public function setGroup($group) {
+        $this->group = $group;
         return $this;
     }
 

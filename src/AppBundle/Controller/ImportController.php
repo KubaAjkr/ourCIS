@@ -92,16 +92,15 @@ class ImportController extends Controller {
                             ->getValue() === NULL) {
                                 $i++;
                             }                              
-                                if (!$this->lastItem) {
-                                    $lastLayer = 1;
-                                }else {
-                                    $lastLayer = $this->lastItem->getLvl() + 1;
-                                }
-                                $layer = $i ;
+                                $lastLayer = $this->lastItem->getLvl() + 1;
+
+                                $layer = $i + 1;
                                 $diff = $layer - $lastLayer;
+                                dump($i);
                                 dump($diff);
                                 if ($diff === 1) {
                                     $this->parent = $this->lastItem;
+                                    //throw $this->createNotFoundException('STOP');
                                 }elseif ($diff === 0) {
                                     $this->parent = $this->lastItem->getParent();
                                 }elseif ($diff < 0) {
@@ -118,7 +117,7 @@ class ImportController extends Controller {
                                 }
                                 //dump($this->parent);
                                 
-                                $this->getItem($column + $layer, $row, $this->parent);
+                                $this->getItem($column + $i, $row, $this->parent);
                     }
                 }                
                 return $this->redirectToRoute('list');

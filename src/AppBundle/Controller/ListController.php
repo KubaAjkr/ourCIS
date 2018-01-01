@@ -42,17 +42,16 @@ class ListController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
 
-        /*
-         * Případné naplnění tabulky Item
-         * 
-         *             
+          /*          
           $user = $this->getDoctrine()
           ->getRepository(User::class)
           ->find(1);
 
           $type = new Type();
+          $type->setGrouper("XX");
           $type->setCode("TEST");
           $type->setName("Test");
+          $type->setDescription("Testovací typ");
 
           $bagr = new Item();
           $bagr->setTitle('KR5500Tk');
@@ -88,8 +87,9 @@ class ListController extends Controller {
           $em->persist($housenice);
           $em->persist($ss);
           $em->flush();
-         * 
-         */
+           
+           */
+    
 
         $contract = 1;
         $this->getDataFromDB($contract);

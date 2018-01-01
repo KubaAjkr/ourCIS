@@ -19,11 +19,21 @@ class Type //implements UserInterface
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+    
+    /**
+     * @ORM\Column(length=8)
+     */
+    protected $grouper;
 
     /**
-     * @ORM\Column(type="string", length=381)
+     * @ORM\Column(type="string", length=64)
      */
     protected $name;
+    
+        /**
+     * @ORM\Column(type="string", length=256)
+     */
+    protected $description;
     
         /**
      * @ORM\Column(type="string", length=4)
@@ -66,5 +76,31 @@ class Type //implements UserInterface
     {
         return $this->code;
     }
-   
+    public function getDescription() {
+        return $this->description;
+    }
+
+    public function getItems() {
+        return $this->items;
+    }
+
+    public function setDescription($description) {
+        $this->description = $description;
+        return $this;
+    }
+
+    public function setItems($items) {
+        $this->items = $items;
+        return $this;
+    }
+
+    public function getGrouper() {
+        return $this->grouper;
+    }
+
+    public function setGrouper($grouper) {
+        $this->grouper = $grouper;
+        return $this;
+    }
+
 }

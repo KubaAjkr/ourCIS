@@ -22,12 +22,12 @@ class Item //implements UserInterface
     private $id;
     
     /**
-     * @ORM\Column(length=8)
+     * @ORM\Column(length=8, nullable=true)
      */
-    protected $group;
+    protected $grouper;
     
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $contract_id;
 
@@ -214,14 +214,15 @@ class Item //implements UserInterface
         return $this;
     }
 
-    public function getGroup() {
-        return $this->group;
+    public function getGrouper() {
+        return $this->grouper;
     }
 
-    public function setGroup($group) {
-        $this->group = $group;
+    public function setGrouper($grouper) {
+        $this->grouper = $grouper;
         return $this;
     }
+
 
 
    

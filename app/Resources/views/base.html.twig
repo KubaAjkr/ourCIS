@@ -9,8 +9,9 @@
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
             <style>
                 .scrollable-panel {
-                    max-height: calc(100vh - 193px);
+                    max-height: calc(100vh - 217px);
                     overflow-y: auto;
+                    width: 15%;
                 }
                 .footer {
                     position: absolute;
@@ -22,6 +23,9 @@
                     padding-left: 0px;
                     padding-right: 0px;
                 }
+                .card-body {
+                    padding: 0px;
+                }
             </style>
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -31,14 +35,14 @@
             {% include '/navbar.html.twig' %}
             {% block headRow %}{% endblock %}
         </header>
-        <main class="scrollable-panel">
-        {% block body %}{% endblock %}
-    </main>
-    <footer class="footer">
-        <div class="card-footer text-muted" >
-            TEXT dole
-        </div>
-    </footer>
+        <main >
+            {% block body %}{% endblock %}
+        </main>
+        <footer class="footer">
+            <div class="card-footer text-muted" >
+                TEXT dole
+            </div>
+        </footer>
     {% block javascripts %}
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>

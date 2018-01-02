@@ -5,170 +5,66 @@
 
 {% block headRow %}
     <div class="card-header">
-        <div class="row w-100">
-            
-                <div>
-                    <label for="exampleFormControlSelect1">Zakázka: </label>
-                </div>
-                <select class="form-control col-md-1 mr-sm-2 control-label" id="ContractId">
+        <div class="row">
+            <div class="col col-md">
+                <label for="exampleFormControlSelect1">Zakázka: </label>
+                <select class="form-control  col-1 mr-sm-2 control-label" id="ContractId">
                     <option>{{ contract }}</option>
                     <option>2</option>
                     <option>3</option>
                     <option>4</option>
                     <option>5</option>
                 </select>
-                <div>        
-                    <span class="badge badge-secondary">
-                        {{ rows_contract }} 
-                    </span>
-                    / 
-                    <span class="badge badge-dark">
-                        {{ rows_item }}
-                    </span>
-                </div>
-            
-            {% if app.user != null %}
-                <div class="row w-100">
-                    <div class="col-md-auto">
-                        ##
-                    </div>
-                    <div class="col-md-1">
-                        Skupina
-                    </div>
-                    <div class="col">
-                        Název
-                    </div>
-                    <div class="col-1">
-                        Typ
-                    </div>
-                    <div class="col-1">
-                        Uživatel
-                    </div>
-
-                    <div class="col-1">
-                        6 of 12
-                    </div>
-                    <div class="col-1">
-                        7 of 12
-                    </div>
-                    <div class="col-1">
-                        8 of 12
-                    </div>
-                    <div class="col-1">
-                        9 of 12
-                    </div>
-                    <div class="col-1">
-                        10 of 12
-                    </div>
-                    <div class="col-1">
-                        11 of 12
-                    </div>
-                    <div class="col-1">
-                        12 of 12
-                    </div>
-                </div>
-                <!--/br>
-                <div class="row w-100">
-                    <div class="col">
-                        1 of 3
-                    </div>
-                    <div class="col">
-                        2 of 3
-                    </div>
-                    <div class="col">
-                        3 of 3
-                    </div>
-                </div-->
-
+            </div>
+            <div class="col col-md">        
+                <span class="badge badge-secondary">
+                    {{ rows_contract }} 
+                </span>
+                / 
+                <span class="badge badge-dark">
+                    {{ rows_item }}
+                </span>
             </div>
         </div>
-    </div>
+     </div>
 
-    {% endif %}
+
 {% endblock %}
 
 {% block body %}
     {% if app.user != null %}
-        <div class="card-body " >    
-            <div class="container-fluid">
-
-                <div id="wrapper">
-                    <div class="col-sm-12" id="sidebar-wrapper">
-
-                        {% for row in XXX %}  
-
-                            <div class="row">
-                                <div class="col-xs-1">
-                                    ##
-                                </div>
-                                <div class="col-md-auto">
-                                    {{ row.grouper }}
-                                </div>
-                                <div class="col">
-
-                                    <div class="row">
-                                        {%if row.lvl > 0 %}
-                                            {% for ind in 1..row.lvl %}
-
-                                                <div class="col col-sm-1">                                 
-                                                </div>       
-                                            {% endfor %}
-                                        {% endif %}
-                                        <div class="col col-sm">
-
-                                            {{ row.title }}
-
-                                        </div>
+        <div class="card-body" >    
+            <div class="row">  
+                <div class="scrollable-panel col col-2" id="sidebar-wrapper">
+                    {% for row in XXX %}  
+                        <div class="row">
+                            <div class="col col-lg">
+                                <div class="row">
+                                    {%if row.lvl > 0 %}
+                                        {% for ind in 1..row.lvl %}
+                                            <div class="col col-sm-1">                                 
+                                            </div>       
+                                        {% endfor %}
+                                    {% endif %}
+                                    <div class="col col-md">
+                                        {{ row.title }}
                                     </div>
                                 </div>
-                                <div class="col-1">
-                                    {{ row.type.code }}
-                                </div>
-                                <div class="col-1">
-                                    {{ row.user.username }}
-                                </div>
-
-                                <div class="col-1">
-                                    6 of 12
-                                </div>
-                                <div class="col-1">
-                                    7 of 12
-                                </div>
-                                <div class="col-1">
-                                    8 of 12
-                                </div>
-                                <div class="col-1">
-                                    9 of 12
-                                </div>
-                                <div class="col-1">
-                                    10 of 12
-                                </div>
-                                <div class="col-1">
-                                    11 of 12
-                                </div>
-                                <div class="col-1">
-                                    12 of 12
-                                </div>
                             </div>
-
-
-
-                        {% endfor %}
-
-                    </div>
-
+                        </div>
+                    {% endfor %}
                 </div>
-
-
+                <div>
+                    Hlavní okno
+                </div>
             </div>
         {% endif %}
         {% if app.user == null %}
             <div class="alert alert-info" role="alert">
                 This is a info alert with <a href="/login" class="alert-link">K aplikaci je třeba se přihlásit >></a>
             </div>
-
         {% endif %}
-    </div>
+        </div>
 
     {#{{ tree|raw }}#}
 

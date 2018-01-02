@@ -14,6 +14,9 @@ class MainController extends Controller
     public function showAction(Request $request)
     {
        
+    if (!$this->getUser()){
+        return $this->redirectToRoute('login');
+    }
         return $this->render('default/index.html.twig', array('aaa' => NULL));
     }
 }

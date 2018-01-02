@@ -1,25 +1,14 @@
 {% extends 'base.html.twig' %}
+{% block body %}   
 
-{% block body %}
-
-    <div class="alert alert-secondary" role="alert">
-        <div class="card-header">Hlavní stránka aplikace ourCIS</div>
-        {% if app.user == null %}
-            <div class="alert alert-success" role="alert">
-                <h4 class="alert-heading">Vítejte!</h4>
-                <p>k této aplikaci je nutné se přihlásit</p>
-                <hr>
-                <p class="mb-0">Pouze pracovní verze obrazovky</p>
-            </div>
-        {% else %}
-            <div class="alert alert-info" role="alert">
-                Pro test rozpadu pokračuj 
-                
-                    <a class="btn btn-success" href="\list">
-                        Zde
-                    </a>
-              
-            </div>
-        {% endif %}
+    <div class="jumbotron">
+        <h1 class="display-4">ourCIS</h1>
+        <p class="lead">Aplikace pro řízení průběhu zakázky od projektu po uvedení do provozu.</p>
+        <hr class="my-4">
+        <p>Pro test rozpadu pokračuj </p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="\list" role="button">Rozpad zakázky</a>
+        </p>
     </div>
+
 {% endblock %}

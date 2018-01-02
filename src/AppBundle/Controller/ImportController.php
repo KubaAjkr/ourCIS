@@ -23,7 +23,6 @@ class ImportController extends Controller {
     private $root;
     private $parent;
     private $lastItem;
-    private $user;
     private $em;
     private $layer; //úroveň položky v RZ
     
@@ -36,7 +35,7 @@ class ImportController extends Controller {
      * @Route("/import", name="import")
      */
     public function importAction(Request $request) {
-        $this->user = $this->getUser();
+           
         $this->em = $this->getDoctrine()->getManager();
         
         $form = $this->createFormBuilder()
@@ -87,9 +86,9 @@ class ImportController extends Controller {
                                     $this->layer = 1;
                             }
                     else {
-                        while($this->spreadsheet->getActiveSheet()
+                        while(($this->spreadsheet->getActiveSheet()
                             ->getCellByColumnAndRow($column+$i, $row)
-                            ->getValue() === NULL) {
+                            ->getValue() === NULL) and ($i < 10)){
                                 $i++;
                             }                              
                                 $lastLayer = $this->lastItem->getLvl() + 1;
@@ -148,11 +147,11 @@ class ImportController extends Controller {
                     );
                 }
                 $item->setType($type);
-                $item->setUser($this->user);
+                $item->setUser($this->getUser());
                 $item->setGrouper("0");
                 $item->setContract_id(1);//TODO
                 $item->setParent($parent);
-                $this->em->persist($this->user);
+                $this->em->persist($this->getUser());
                 $this->em->persist($type);
                 $this->em->persist($item);
                 $this->em->flush();
@@ -160,14 +159,7 @@ class ImportController extends Controller {
                 return $item;   
     }
     
-    /*
-     * nastavení entity User podle aktuálního uživatele
-     */
-    protected function getUser() {
-        return $this->getDoctrine()
-        ->getRepository(User::class)
-        ->find(1); //TODO
-    }
+
 
     /*
      * Naplní tabulku Type z rozpadu

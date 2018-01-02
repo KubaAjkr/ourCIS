@@ -1,3 +1,4 @@
+
 {% extends 'base.html.twig' %}
 
 
@@ -37,97 +38,23 @@
 
     {% set i=1 %}
     {% if app.user != null %}
-
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-1">
-                    #
-                </div>
-                <div class="col-md-auto">
-                    Skupina
-                </div>
-                <div class="col">
-                    Název
-                </div>
-                <div class="col-1">
-                    Typ
-                </div>
-                <div class="col-1">
-                    Uživatel
-                </div>
-
-                <div class="col-1">
-                    6 of 12
-                </div>
-                <div class="col-1">
-                    7 of 12
-                </div>
-                <div class="col-1">
-                    8 of 12
-                </div>
-                <div class="col-1">
-                    9 of 12
-                </div>
-                <div class="col-1">
-                    10 of 12
-                </div>
-                <div class="col-1">
-                    11 of 12
-                </div>
-                <div class="col-1">
-                    12 of 12
-                </div>
-            </div>
-            </br>
-            <div class="row">
-                <div class="col">
-                    1 of 3
-                </div>
-                <div class="col">
-                    2 of 3
-                </div>
-                <div class="col">
-                    3 of 3
-                </div>
-            </div>
-            </br>
-
-
-
-
-
-
-            {% for row in XXX %}  
-
+        <div class="card-body " >    
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-xs-1">
-                        {{ row.id }}
+                        #
                     </div>
                     <div class="col-md-auto">
-                        {{ row.grouper }}
+                        Skupina
                     </div>
                     <div class="col">
-
-                        <div class="row">
-                                {%if row.lvl > 0 %}
-                                {% for ind in 1..row.lvl %}
-                                
-                                <div class="col col-sm-1">                                 
-                                </div>       
-                                {% endfor %}
-                                {% endif %}
-                            <div class="col col-sm">
-                                
-                                {{ row.title }}
-
-                            </div>
-                        </div>
+                        Název
                     </div>
                     <div class="col-1">
-                        {{ row.type.code }}
+                        Typ
                     </div>
                     <div class="col-1">
-                        {{ row.user.username }}
+                        Uživatel
                     </div>
 
                     <div class="col-1">
@@ -152,15 +79,98 @@
                         12 of 12
                     </div>
                 </div>
+                </br>
+                <div class="row">
+                    <div class="col">
+                        1 of 3
+                    </div>
+                    <div class="col">
+                        2 of 3
+                    </div>
+                    <div class="col">
+                        3 of 3
+                    </div>
+                </div>
+                </br>
 
-                {% set i=i+1 %}                  
-
-            {% endfor %}
 
 
+
+                <div id="wrapper">
+                    <div class="col-sm-12" id="sidebar-wrapper">
+                        <!--div class="panel-body" runat="server" style="overflow-y: scroll; height: 600px">
+                         <div id="Test1" runat="server" width="100%"-->   
+                        {% for row in XXX %}  
+
+                            <div class="row">
+                                <!--div class="col-xs-1">
+                                    ##
+                                </div-->
+                                <div class="col-md-auto">
+                                    {{ row.grouper }}
+                                </div>
+                                <div class="col">
+
+                                    <div class="row">
+                                        {%if row.lvl > 0 %}
+                                            {% for ind in 1..row.lvl %}
+
+                                                <div class="col col-sm-1">                                 
+                                                </div>       
+                                            {% endfor %}
+                                        {% endif %}
+                                        <div class="col col-sm">
+
+                                            {{ row.title }}
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-1">
+                                    {{ row.type.code }}
+                                </div>
+                                <div class="col-1">
+                                    {{ row.user.username }}
+                                </div>
+
+                                <div class="col-1">
+                                    6 of 12
+                                </div>
+                                <div class="col-1">
+                                    7 of 12
+                                </div>
+                                <div class="col-1">
+                                    8 of 12
+                                </div>
+                                <div class="col-1">
+                                    9 of 12
+                                </div>
+                                <div class="col-1">
+                                    10 of 12
+                                </div>
+                                <div class="col-1">
+                                    11 of 12
+                                </div>
+                                <div class="col-1">
+                                    12 of 12
+                                </div>
+                            </div>
+
+
+
+                        {% endfor %}
+                        <!--/div>
+                    </div-->
+                    </div>
+
+                </div>
+
+
+            </div>
         {% endif %}
 
     </div>
+
     {#{{ tree|raw }}#}
 
     {% if app.user == null %}

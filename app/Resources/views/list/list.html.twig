@@ -3,48 +3,36 @@
 
 
 
-{% block body %}
-
-
-
+{% block headRow %}
     <div class="card-header">
-
-
-        <div class="row">
-            <div>
-                <label for="exampleFormControlSelect1">Zakázka: </label>
-            </div>
-
-            <select class="form-control col-md-1 mr-sm-2 control-label" id="ContractId">
-                <option>{{ contract }}</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
-
-            <div>        
-                <span class="badge badge-secondary">
-                    {{ rows_contract }} 
-                </span>
-                / 
-                <span class="badge badge-dark">
-                    {{ rows_item }}
-                </span>
-            </div>
-        </div>
-
-    </div>
-
-    {% set i=1 %}
-    {% if app.user != null %}
-        <div class="card-body " >    
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xs-1">
-                        #
-                    </div>
+        <div class="row w-100">
+            
+                <div>
+                    <label for="exampleFormControlSelect1">Zakázka: </label>
+                </div>
+                <select class="form-control col-md-1 mr-sm-2 control-label" id="ContractId">
+                    <option>{{ contract }}</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+                <div>        
+                    <span class="badge badge-secondary">
+                        {{ rows_contract }} 
+                    </span>
+                    / 
+                    <span class="badge badge-dark">
+                        {{ rows_item }}
+                    </span>
+                </div>
+            
+            {% if app.user != null %}
+                <div class="row w-100">
                     <div class="col-md-auto">
+                        ##
+                    </div>
+                    <div class="col-md-1">
                         Skupina
                     </div>
                     <div class="col">
@@ -79,8 +67,8 @@
                         12 of 12
                     </div>
                 </div>
-                </br>
-                <div class="row">
+                <!--/br>
+                <div class="row w-100">
                     <div class="col">
                         1 of 3
                     </div>
@@ -90,15 +78,23 @@
                     <div class="col">
                         3 of 3
                     </div>
-                </div>
-                </br>
+                </div-->
 
+            </div>
+        </div>
+    </div>
 
+    {% endif %}
+{% endblock %}
 
+{% block body %}
+    {% if app.user != null %}
+        <div class="card-body " >    
+            <div class="container-fluid">
 
                 <div id="wrapper">
                     <div class="col-sm-12" id="sidebar-wrapper">
-  
+
                         {% for row in XXX %}  
 
                             <div class="row">
@@ -166,11 +162,12 @@
 
             </div>
         {% endif %}
-    {% if app.user == null %}
-        <div class="alert alert-info" role="alert">
-            This is a info alert with <a href="/login" class="alert-link">K aplikaci je třeba se přihlásit >></a>
-        </div>
-    {% endif %}
+        {% if app.user == null %}
+            <div class="alert alert-info" role="alert">
+                This is a info alert with <a href="/login" class="alert-link">K aplikaci je třeba se přihlásit >></a>
+            </div>
+
+        {% endif %}
     </div>
 
     {#{{ tree|raw }}#}

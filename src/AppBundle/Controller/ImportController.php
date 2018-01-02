@@ -95,8 +95,7 @@ class ImportController extends Controller {
 
                                 $layer = $i + 1;
                                 $diff = $layer - $lastLayer;
-                                dump($i);
-                                dump($diff);
+                                $this->parent = NULL;
                                 if ($diff === 1) {
                                     $this->parent = $this->lastItem;
                                     //throw $this->createNotFoundException('STOP');
@@ -109,14 +108,10 @@ class ImportController extends Controller {
                                         $this->parent = $this->parent->getParent();
                                         $diff--;
                                     }
-                                }else {
-                                    throw $this->createNotFoundException(
-                                        'Nenávazná položka RZ !'.$i." ".$row
-                                    );
                                 }
-                                //dump($this->parent);
-                                
-                                $this->getItem($column + $i, $row, $this->parent);
+                                if ($this->parent) {                               
+                                    $this->getItem($column + $i, $row, $this->parent);
+                                }
                     }
                 }                
                 return $this->redirectToRoute('list');
@@ -142,8 +137,8 @@ class ImportController extends Controller {
                     ->getCellByColumnAndRow(self::COLUMN_TYPE, $row)->getValue()));
                 
                 if (!$type) {
-                    throw $this->createNotFoundException(
-                            'Nenalezen typ ' . $type
+                    throw $this->createNotFoundException( //TODO !!! Nahradit doplněním typu do databáze
+                            'Nenalezen typ na řádku ' . $row
                     );
                 }
                 $item->setType($type);

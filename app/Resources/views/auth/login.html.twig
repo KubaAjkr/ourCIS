@@ -4,9 +4,7 @@
 
 {% block body %}
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel">
+
                 <div class="card-header">Login</div>
                 <div class="card-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ path('security_login_check') }}">
@@ -41,8 +39,6 @@
                         </div>
                     </form>
                 </div>
-            </div>
-        </div>
-    </div>
+
 </div>
 {% endblock %}

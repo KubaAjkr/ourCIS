@@ -1,21 +1,10 @@
 
 {% extends 'base.html.twig' %}
 
-
-
-{% block headRow %}
+{% block header %}
     <div class="card-header">
         <div class="row">
-            <div class="col col-md">
-                <label for="exampleFormControlSelect1">Zakázka: </label>
-                <select class="form-control  col-1 mr-sm-2 control-label" id="ContractId">
-                    <option>{{ contract }}</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
-            </div>
+
             <div class="col col-md">        
                 <span class="badge badge-secondary">
                     {{ rows_contract }} 
@@ -65,9 +54,21 @@
             </div>
         {% endif %}
         </div>
-
     {#{{ tree|raw }}#}
+{% endblock %}
 
-
-
+{% block footer %}
+    <div class="container">
+        <div class="row justify-content-start">
+            <div class="col-1">
+                <select class="form-control control-label" id="ContractId">
+                    <option>{{ contract }}</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -9,7 +9,7 @@
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
             <style>
                 .scrollable-panel {
-                    max-height: calc(100vh - 217px);
+                    max-height: calc(100vh - 157px);
                     overflow-y: auto;
                     width: 15%;
                 }
@@ -24,7 +24,10 @@
                     padding-right: 0px;
                 }
                 .card-body {
-                    padding: 0px;
+                    padding-top: 1px;
+                    padding-bootom: 1px;
+                    padding-left: 5px;
+
                 }
             </style>
         {% endblock %}
@@ -33,14 +36,14 @@
     <body>
         <header>
             {% include '/navbar.html.twig' %}
-            {% block headRow %}{% endblock %}
+            {% block header %}{% endblock %}
         </header>
         <main >
             {% block body %}{% endblock %}
         </main>
         <footer class="footer">
             <div class="card-footer text-muted" >
-                TEXT dole
+                {% block footer %}{% endblock %}
             </div>
         </footer>
     {% block javascripts %}

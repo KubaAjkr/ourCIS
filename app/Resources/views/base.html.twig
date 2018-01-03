@@ -9,9 +9,10 @@
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
             <style>
                 .scrollable-panel {
-                    max-height: calc(100vh - 157px);
-                    overflow-y: auto;
-                    width: 15%;
+                    max-height: calc(100vh - 171px);
+                    overflow-x: auto;
+                    overflow-y: auto;                    
+
                 }
                 .footer {
                     position: absolute;
@@ -24,10 +25,14 @@
                     padding-right: 0px;
                 }
                 .card-body {
-                    padding-top: 1px;
-                    padding-bootom: 1px;
-                    padding-left: 5px;
-
+                    padding-top: 0px;
+                    padding-bottom: 0px;
+                    padding-left: 5px; 
+                    padding-right: 0px;
+                }
+                .left-tree {
+                    text-align: left;
+                    padding-right: 0px;
                 }
             </style>
         {% endblock %}
@@ -42,9 +47,7 @@
             {% block body %}{% endblock %}
         </main>
         <footer class="footer">
-            <div class="card-footer text-muted" >
                 {% block footer %}{% endblock %}
-            </div>
         </footer>
     {% block javascripts %}
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

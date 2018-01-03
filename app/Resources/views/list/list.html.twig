@@ -15,7 +15,7 @@
                 </span>
             </div>
         </div>
-     </div>
+    </div>
 
 
 {% endblock %}
@@ -24,26 +24,32 @@
     {% if app.user != null %}
         <div class="card-body" >    
             <div class="row">  
-                <div class="scrollable-panel col col-2" id="sidebar-wrapper">
+                <div class="scrollable-panel col col-2" id="left-panel">
                     {% for row in XXX %}  
                         <div class="row">
-                            <div class="col col-lg">
-                                <div class="row">
-                                    {%if row.lvl > 0 %}
-                                        {% for ind in 1..row.lvl %}
-                                            <div class="col col-sm-1">                                 
-                                            </div>       
-                                        {% endfor %}
-                                    {% endif %}
-                                    <div class="col col-md">
-                                        {{ row.title }}
+                            <div class="col col-lg left-tree">
+                                <a class="btn btn-light btn-sm col-md left-tree" href="/list?id={{row.id}}" role="button">
+                                    <div class="row">
+
+                                        {%if row.lvl > 0 %}
+                                            {% for ind in 1..row.lvl %}
+                                                <div class="col col-sm-1">                                 
+                                                </div>       
+                                            {% endfor %}
+                                        {% endif %}
+                                        <div class="col col-md" data-toggle="tooltip" data-html="true" title="Kód položky: {{ row.type.code }}">
+
+                                            {{ row.title }}
+
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
+
                             </div>
                         </div>
                     {% endfor %}
                 </div>
-                <div>
+                <div class="col-col-10" id="main-panel">
                     Hlavní okno
                 </div>
             </div>
@@ -53,15 +59,15 @@
                 This is a info alert with <a href="/login" class="alert-link">K aplikaci je třeba se přihlásit >></a>
             </div>
         {% endif %}
-        </div>
+    </div>
     {#{{ tree|raw }}#}
 {% endblock %}
 
 {% block footer %}
-    <div class="container">
+    <div class="card-footer text-muted">
         <div class="row justify-content-start">
             <div class="col-1">
-                <select class="form-control control-label" id="ContractId">
+                <select class="form-control col control-label" id="ContractId">
                     <option>{{ contract }}</option>
                     <option>2</option>
                     <option>3</option>
@@ -69,6 +75,7 @@
                     <option>5</option>
                 </select>
             </div>
+
         </div>
     </div>
 {% endblock %}

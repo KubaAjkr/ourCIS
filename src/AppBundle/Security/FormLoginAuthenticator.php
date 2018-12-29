@@ -14,22 +14,44 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Core\Security;
 
+
+use AppBundle\Form\LoginForm;
+use Doctrine\ORM\EntityManager;
+use Symfony\Component\Form\FormFactoryInterface;
+//use Symfony\Component\HttpFoundation\Request;
+//use Symfony\Component\Routing\RouterInterface;
+//use Symfony\Component\Security\Core\Security;
+//use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+//use Symfony\Component\Security\Core\User\UserInterface;
+//use Symfony\Component\Security\Core\User\UserProviderInterface;
+//use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
+
 class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
 {
     private $router;
     private $encoder;
+    private $formFactory;
+    private $em;
+    private $passwordEncoder;
 
     public function __construct(RouterInterface $router, UserPasswordEncoderInterface $encoder)
     {
         $this->router = $router;
         $this->encoder = $encoder;
     }
+    public function supports(Request $request)
 
+    {
+
+        return $request->getPathInfo() == '/login_check' && $request->isMethod('POST');
+
+    }
+    
     public function getCredentials(Request $request)
     {
-        if ($request->getPathInfo() != '/login_check') {
-          return;
-        }
+        //if ($request->getPathInfo() != '/login_check') {
+        //  return;
+        //}
 
         $username = $request->request->get('_username');
         $request->getSession()->set(Security::LAST_USERNAME, $username);
@@ -39,6 +61,7 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
             'username' => $username,
             'password' => $password,
         ];
+
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)

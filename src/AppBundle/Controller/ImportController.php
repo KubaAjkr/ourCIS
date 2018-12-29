@@ -2,7 +2,8 @@
 
 namespace AppBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+//use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -62,7 +63,6 @@ class ImportController extends Controller {
                 $this->error = "Je podporována pouze verze 14 Rozpadu zakázky!";
             } else {
                 $this->spreadsheet->setActiveSheetIndex(3);
-                
                 $this->root = $this->getItem($column, $row, NULL);//TODO začlenit vlastní fce
                 $this->parent = $this->root;
                 $this->layer = 1;
@@ -107,12 +107,14 @@ class ImportController extends Controller {
                                     $this->getItem($column + $i, $row, $this->parent);
                                 }
                     }
-                }                
+                }  
+                dump("aaaa");
                 return $this->redirectToRoute('list');
                 
-            }           
+            }   
+        dump("AAAA");
         }
-
+        
         return $this->render('other/import.html.twig', array(
                     'form' => $form->createView(),
                     'error' => $this->error,
@@ -147,7 +149,7 @@ class ImportController extends Controller {
                 $this->em->persist($item);
                 $this->em->flush();
                 $this->lastItem = $item;
-                 return $item;   
+                return $item;   
     }
     
 

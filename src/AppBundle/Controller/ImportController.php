@@ -123,6 +123,8 @@ class ImportController extends Controller {
      * vyplní strukturu položku Item z konkrétních souřadnic Xmls
      */
     protected function getItem($col, $row, $parent) {
+        error_reporting (E_ALL);
+        ini_set ('display_errors', ' 1');
                 $item = new Item();
                 $item->setTitle($this->spreadsheet->getActiveSheet()->
                         getCellByColumnAndRow($col, $row)->getValue());
@@ -145,7 +147,7 @@ class ImportController extends Controller {
                 $this->em->persist($item);
                 $this->em->flush();
                 $this->lastItem = $item;
-                return $item;   
+                 return $item;   
     }
     
 

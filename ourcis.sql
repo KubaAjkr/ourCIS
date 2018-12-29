@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: 127.0.0.1
--- Vytvořeno: Čtv 28. pro 2017, 22:48
--- Verze serveru: 10.1.28-MariaDB
--- Verze PHP: 7.1.11
+-- Vytvořeno: Sob 29. pro 2018, 18:28
+-- Verze serveru: 10.1.36-MariaDB
+-- Verze PHP: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -34,22 +34,13 @@ CREATE TABLE `item` (
   `parent_id` int(11) DEFAULT NULL,
   `type_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `contract_id` int(11) NOT NULL,
+  `contract_id` int(11) DEFAULT NULL,
   `title` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `lft` int(11) NOT NULL,
   `lvl` int(11) NOT NULL,
-  `rgt` int(11) NOT NULL
+  `rgt` int(11) NOT NULL,
+  `grouper` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Vypisuji data pro tabulku `item`
---
-
-INSERT INTO `item` (`id`, `root_id`, `parent_id`, `type_id`, `user_id`, `contract_id`, `title`, `lft`, `lvl`, `rgt`) VALUES
-(1, 1, NULL, 30, 1, 1, 'KR5500Tk', 1, 0, 8),
-(2, 1, 1, 30, 1, 1, 'Podvozek', 2, 1, 5),
-(3, 1, 2, 30, 1, 1, 'Housenice', 3, 2, 4),
-(4, 1, 1, 30, 1, 1, 'Spodní stavba', 6, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -59,37 +50,99 @@ INSERT INTO `item` (`id`, `root_id`, `parent_id`, `type_id`, `user_id`, `contrac
 
 CREATE TABLE `type` (
   `id` int(11) NOT NULL,
-  `name` varchar(381) COLLATE utf8_unicode_ci NOT NULL,
-  `code` varchar(4) COLLATE utf8_unicode_ci NOT NULL
+  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `code` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
+  `grouper` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(256) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Vypisuji data pro tabulku `type`
 --
 
-INSERT INTO `type` (`id`, `name`, `code`) VALUES
-(5, 'Test', 'TEST'),
-(7, 'Test', 'TEST'),
-(9, 'Test', 'TEST'),
-(10, 'Test', 'TEST'),
-(11, 'Test', 'TEST'),
-(13, 'Test', 'TEST'),
-(14, 'Test', 'TEST'),
-(16, 'Test', 'TEST'),
-(18, 'Test', 'TEST'),
-(19, 'Test', 'TEST'),
-(20, 'Test', 'TEST'),
-(21, 'Test', 'TEST'),
-(22, 'Test', 'TEST'),
-(23, 'Test', 'TEST'),
-(24, 'Test', 'TEST'),
-(25, 'Test', 'TEST'),
-(27, 'Test', 'TEST'),
-(28, 'Test', 'TEST'),
-(29, 'Test', 'TEST'),
-(30, 'Test', 'TEST'),
-(31, 'Test', 'TEST'),
-(32, 'Test', 'TEST');
+INSERT INTO `type` (`id`, `name`, `code`, `grouper`, `description`) VALUES
+(1, '', 'ELDK', '', ''),
+(2, '', 'ELDP', '', ''),
+(3, 'Ovladač, Přijímač, Anténa', 'ELDV', '', ''),
+(4, 'Frekvenční měniče a nezbytné doplňky (Pojistky, Brzdný odpor, Be', 'ELFM', '', ''),
+(5, 'Elektroprim - Koutník', 'ELIC', '', ''),
+(6, 'Napájecí kabel, Kabely VN, Silové kabely NN, Snímačové kabely, K', 'ELKA', '', ''),
+(7, 'Kompletní klimatizační zařízení elektrické rozvody, Strojovny, P', 'ELKL', '', ''),
+(8, 'Samostatné kondenzátory nebo kompletní kompenzační rozvaděč s re', 'ELKO', '', ''),
+(9, 'Prvky kamerového systému (Kamery, Kvadrátory, Monitory, Dekodéry', 'ELKS', '', ''),
+(10, 'Příslušenství pro montáž kabelů (háky, Ucpávky, Vývodky, Rošty, ', 'ELKT', '', ''),
+(11, 'Specifikace samostatně kupovaných motorů (nejsou součástí nějaké', 'ELMO', '', ''),
+(12, '', 'ELMT', '', ''),
+(13, '', 'ELND', '', ''),
+(14, 'Kompletní samostatně stojící rozvaděče, Nástenní rozvodní skříně', 'ELNN', '', ''),
+(15, 'Reflektory pro osvětlení pracovního prostoru, technologických čá', 'ELOS', '', ''),
+(16, 'Ostatní specifické dodávky, Vytápění svodek', 'ELOZ', '', ''),
+(17, '', 'ELPM', '', ''),
+(18, 'Stavební část rozvodny včetně pomocných systémů, nespecifikovaný', 'ELRO', '', ''),
+(19, 'Dodávka SW a HW, Dodávka návodů, Dodávky licencí, HW (PLC, HMI, ', 'ELRS', '', ''),
+(20, '', 'ELSE', '', ''),
+(21, '', 'ELSI', '', ''),
+(22, 'Snímače fyzikálních veličin a analogovým, binárním nebo komunika', 'ELSN', '', ''),
+(23, '', 'ELSP', '', ''),
+(24, 'Výkonový transformátor VN / NN pro technologii a pro osvětlení, ', 'ELTR', '', ''),
+(25, 'Kompletní rozvaděče VN včetně silových prvků, Ochran, Řízení, Ko', 'ELVN', '', ''),
+(26, 'Bezpečnostní tlačítkové vypínače, Lankové vypínače, Údržbové vyp', 'ELVY', '', ''),
+(27, '', 'ELZP', '', ''),
+(28, '', 'ELZR', '', ''),
+(29, 'Rozvaděč se staničními akumulátory, nebo diesel-generátor (malá ', 'ELZZ', '', ''),
+(30, 'Samostatně uvažované kolejnice, Válcované profily v běžných metr', 'OKHM', '', ''),
+(31, 'Ocelové prvky, které se nepodaří zařadit jinam, používání výjime', 'OKOS', '', ''),
+(32, 'Pororošty', 'OKRO', '', ''),
+(33, 'Podle ČSN 73 2601 výrobní skupina A, Aa, Ba, Podle ČSN EN 1090-2', 'OKS1', '', ''),
+(34, 'Podle ČSN 73 2601 výrobní skupina B, Podle ČSN EN 1090-2 třída p', 'OKS2', '', ''),
+(35, 'Podle ČSN 73 2601 výrobní skupina C, Podle ČSN EN 1090-2 třída p', 'OKS3', '', ''),
+(36, 'Gumy, Napínání pasu, Těsnění', 'OSDP', '', ''),
+(37, '', 'OSNA', '', ''),
+(38, '', 'OSOB', '', ''),
+(39, 'Výstražní a informační tabulky, Štítek stroje, Štítky el. zaříze', 'OSTS', '', ''),
+(40, '', 'OSZB', '', ''),
+(41, '', 'OSZO', '', ''),
+(42, '', 'OSZS', '', ''),
+(43, 'Betonové základy, Základy pro střední díly dopravníků, Betonová ', 'SABE', '', ''),
+(44, 'Kolejnice, Připojovací části kolejnic', 'SAKD', '', ''),
+(45, 'Tenkostěnné', 'SAOP', '', ''),
+(46, '', 'SAOS', '', ''),
+(47, '', 'SAZA', '', ''),
+(48, 'Samostatné brzdy, dodávané kompletně od dodavatele. Součást brzd', 'STBR', '', ''),
+(49, 'Sestava bubnu včetně pogumování či keramické obšívky', 'STBU', '', ''),
+(50, 'Hydraulické válce bez čepů a spojovacího materiálu', 'STHV', '', ''),
+(51, 'Ložiska a ložiskové domky', 'STLO', '', ''),
+(52, 'Komplet', 'STMA', '', ''),
+(53, 'Pera, Normalizované čepy, Vysokopevnostní šrouby, Jemné závity', 'STNO', '', ''),
+(54, 'Čepy, Uložení pro ložiska, Kluzná ložiska, Pouzdra, Velkorozměro', 'STO1', '', ''),
+(55, 'Čepy, Uložení pro ložiska, Kluzná ložiska, Pouzdra, Vodící lišty', 'STO2', '', ''),
+(56, 'Zbytek kde nezáleží na přesnosti, Obyč. obrábené plochy, Drážka,', 'STO3', '', ''),
+(57, '', 'STOD', '', ''),
+(58, '', 'STOS', '', ''),
+(59, 'Celá sestava pohonu (převodovka, brzda, spojka, motor a rám), Př', 'STPO', '', ''),
+(60, 'Převodovky + Reakční ramena, Příruby a jiné součásti převodovek ', 'STPR', '', ''),
+(61, 'Šrouby, Matice, Podložky, Prakticky celé obsahové centrum', 'STSM', '', ''),
+(62, 'Samostatné spojky dodávané kompletně od dodavatele', 'STSP', '', ''),
+(63, 'Stěrače kompletně dodávané dodavatelem', 'STST', '', ''),
+(64, 'Nakupované válečky a menší převáděcí bubny', 'STVA', '', ''),
+(65, '', 'STVY', '', ''),
+(66, '', 'SUDR', '', ''),
+(67, '', 'SUHY', '', ''),
+(68, '', 'SUKA', '', ''),
+(69, 'SHZ - Stabilní hasící zařízení, MHS - Mobilní hasící zařízení, E', 'SUOS', '', ''),
+(70, '', 'SUPD', '', ''),
+(71, 'Centrální mazací systém', 'SUSM', '', ''),
+(72, 'Koreček, Řetěz, Článek řetězu, Sestava zubu', 'SUTO', '', ''),
+(73, '', 'PRDP', '', ''),
+(74, '', 'PRMZ', '', ''),
+(75, '', 'PRNP', '', ''),
+(76, '', 'PRNT', '', ''),
+(77, 'PLC včetně montáže, Oživení, Odzkoušení, Opravy dokumentace, Ele', 'PROI', '', ''),
+(78, '', 'PRSR', '', ''),
+(79, 'Cestovné, Právní poradenství interní', 'RENO', '', ''),
+(80, 'Právní poradenství externí, Překlady', 'REEX', '', ''),
+(81, '', 'OPTN', '', ''),
+(82, '', '-', '', '');
 
 -- --------------------------------------------------------
 
@@ -147,13 +200,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pro tabulku `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 
 --
 -- AUTO_INCREMENT pro tabulku `type`
 --
 ALTER TABLE `type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT pro tabulku `user`

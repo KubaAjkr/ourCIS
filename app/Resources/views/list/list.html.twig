@@ -28,7 +28,7 @@
                     {% for row in XXX %}  
                         <div class="row">
                             <div class="col col-lg left-tree">
-                                <a class="btn btn-light btn-sm col-md left-tree" href="/list?id={{row.id}}" role="button">
+                                <a class="btn btn-light btn-sm col-md left-tree" href="{{ path('list') }}?id={{row.id}}" role="button">
                                     <div class="row">
 
                                         {%if row.lvl > 0 %}

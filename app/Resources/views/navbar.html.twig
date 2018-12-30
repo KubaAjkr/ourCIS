@@ -1,5 +1,5 @@
          <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="\">ourCIS</a>
+            <a class="navbar-brand" href="{{ path('main') }}">ourCIS</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -7,41 +7,41 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                  <a class="nav-link" href="\import">Import</a>
+                  <a class="nav-link" href="{{ path('import') }}">Import</a>
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Dropdown
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Akce</a>
-                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="{{ path('main') }}">Akce</a>
+                    <a class="dropdown-item" href="{{ path('main') }}">Another action</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Něco dalšího</a>
+                    <a class="dropdown-item" href="{{ path('main') }}">Něco dalšího</a>
                   </div>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link disabled" href="#">Disabled</a>
+                  <a class="nav-link disabled" href="{{ path('main') }}">Disabled</a>
                 </li>
               </ul>
                 <ul  class="navbar-nav ml-auto">
                     <li class="nav-item dropdown">
                         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="{{ path('main') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {{ app.user.username }}
                             </a>
                         {% else %}
-                            <a class="nav-link" href="/login" >
+                            <a class="nav-link" href="{{ path('login') }}" >
                                 Přihlásit
                             </a>
                         {% endif %}
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Nápověda</a>
-                            <a class="dropdown-item" href="#">Nastavení</a>
+                            <a class="dropdown-item" href="{{ path('main') }}">Nápověda</a>
+                            <a class="dropdown-item" href="{{ path('main') }}">Nastavení</a>
 
                             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/logout">Odhlásit</a>
+                                <a class="dropdown-item" href="{{ path('logout') }}">Odhlásit</a>
                             {% endif %}
                         </div>
                     </li>

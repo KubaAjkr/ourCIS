@@ -56,7 +56,7 @@
         {% endif %}
         {% if app.user == null %}
             <div class="alert alert-info" role="alert">
-                This is a info alert with <a href="/login" class="alert-link">K aplikaci je třeba se přihlásit >></a>
+                This is a info alert with <a href="{{ path('login') }}" class="alert-link">K aplikaci je třeba se přihlásit >></a>
             </div>
         {% endif %}
     </div>

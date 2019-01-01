@@ -103,7 +103,7 @@ class ListController extends Controller {
         $contract = 1;
         $this->getListFromDB($contract);
         
-        $id = $request->query->get('id')-1;
+        $id = $request->query->get('id');
 
         return $this->render('list/list.html.twig', array(
                     'contract' => $contract,

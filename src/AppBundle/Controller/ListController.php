@@ -17,7 +17,7 @@ class ListController extends Controller {
     private $em;
     private $itemsRows;
 
-    private function getDataFromDB($contract) {
+    private function getListFromDB($contract) {
 
         $query = $this->get('doctrine')->getManager()
                         ->createQuery(
@@ -34,6 +34,14 @@ class ListController extends Controller {
                                 WHERE i.contract_id = :contractId '
                         )->setParameter('contractId', $contract);
         $this->itemsRows = $query->getSingleScalarResult();
+    }
+    
+    private function getTitleFromDB($id) {
+
+         $item = $this->getDoctrine()
+          ->getRepository(Item::class)
+          ->find($id);
+    return($item);
     }
 
     /**
@@ -93,15 +101,19 @@ class ListController extends Controller {
     
 
         $contract = 1;
-        $this->getDataFromDB($contract);
- 
+        $this->getListFromDB($contract);
+        
+        $id = $request->query->get('id')-1;
+
         return $this->render('list/list.html.twig', array(
                     'contract' => $contract,
                     'rows_contract' => 0,
                     'rows_item' => $this->itemsRows,
-                    'XXX' => $this->list
+                    'XXX' => $this->list,
+                    'selected_item' =>  $id)
+   
 
-        ));
+        );
     }
 
 }

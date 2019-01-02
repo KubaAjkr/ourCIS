@@ -49,6 +49,16 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="Item", mappedBy="user")
      */
     private $items;
+    
+    /**
+     * @ORM\Column(type="string", length=64, unique=false)
+     */
+    protected $firstname;
+    
+    /**
+     * @ORM\Column(type="string", length=64, unique=false)
+     */
+    protected $surename;
 
     public function __construct()
     {
@@ -126,5 +136,23 @@ class User implements UserInterface
     public function getSalt()
     {
         return null;
+    }
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname($firstname)
+    {
+        $this->username = $firstname;
+    }
+    public function getSurename()
+    {
+        return $this->surename;
+    }
+
+    public function setSurename($surename)
+    {
+        $this->username = $surename;
     }
 }

@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
+use Symfony\Component\HttpFoundation\File\File;
+
 use AppBundle\Entity\Item;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Type;
@@ -33,6 +35,9 @@ class ImportController extends Controller {
            
         $this->em = $this->getDoctrine()->getManager();
         
+        dump($_POST);
+        dump($request );
+        
         $form = $this->createFormBuilder()
                 ->add('file', FileType::class, array('label' => 'Rozpad zakázky (.xlsx file) - podporována pouze verze 14'))
                 ->getForm();
@@ -40,12 +45,16 @@ class ImportController extends Controller {
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            //$file = $form['file']->getData();
+            $file = $form['file']->getData();
             $NewFilename = 'lastImport.xlsx';
             $dir = './ImportFiles/';
             //$file->move($dir, $file->getClientOriginalName());
             $form['file']->getData()->move($dir, $NewFilename);
+            
 
+
+
+            //$_POST['_filename']->move($dir, $NewFilename);
 
             $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
             $reader->setLoadAllSheets();
@@ -108,11 +117,11 @@ class ImportController extends Controller {
                                 }
                     }
                 }  
-                dump("aaaa");
+                
                 return $this->redirectToRoute('list');
                 
             }   
-        dump("AAAA");
+        
         }
         
         return $this->render('other/import.html.twig', array(
@@ -159,6 +168,9 @@ class ImportController extends Controller {
      */
 
     public function flushType() {
+        
+        dump("flushType");
+        dump($_POST['_filename']);
 
         $form = $this->createFormBuilder()
                 ->add('file', FileType::class, array('label' => 'Rozpad zakázky (.xlsx file) - podporována pouze verze 14'))

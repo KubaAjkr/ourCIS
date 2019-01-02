@@ -51,25 +51,127 @@
                     {% endfor %}
                 </div>
                 <div class="col col-10" id="main-panel">
-                   
-                {% if selected_item >= 1 %}
-                    <div class="alert alert-info alert-dismissible fade show" role="alert">
-                        <strong>{{XXX[selected_item - 1].getTitle()}}</strong>  vybraná položka č. {{selected_item}} kód <strong>{{XXX[selected_item-1].getType().getCode()}}</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                {% else %}
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <strong>Vyberte položku ze stromu. </strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                {% endif %}
-                
+
+                    {% if selected_item >= 1 %}
+                        <style>.card-body {margin:15px;}</style>
+                        <div id="accordion">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <label class="lead">Obecné informace o položce</label>
+                                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">                 
+                                            <span aria-hidden="true">&#9661;</span>
+                                        </button>
+                                    </h5>
+                                </div>
+
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                    <div class="card-body">
+
+                                        <form>
+                                            <div class="form-group row">
+
+                                                <label for="item_id" class="col-sm-2 col-form-label">ID:</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" readonly class="form-control" id="item_id" placeholder="{{selected_item}}">
+                                                </div>
+
+                                                <label for="parent_id" class="col-sm-2 col-form-label">ID nadřazené pol.:</label>
+                                                <div class="col-sm-4">
+                                                    {% if  XXX[selected_item - 1].getParent() != null %}
+                                                        <input type="text" readonly class="form-control" id="parent_id" placeholder="{{XXX[selected_item - 1].getParent.getId()}}">
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+
+                                                <label for="item_name" class="col-sm-2 col-form-label">Název položky:</label>
+                                                <div class="col-sm-10">
+
+                                                    <input type="text"  class="form-control " id="item_name" value="{{XXX[selected_item - 1].getTitle()}}">
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="parent_name" class="col-sm-2 col-form-label">Nadřazená položka:</label>
+                                                <div class="col-sm-10">
+                                                    {% if  XXX[selected_item - 1].getParent() != null %}
+                                                        <input type="text" readonly class="form-control btn-link" id="parent_name" value="{{XXX[selected_item - 1].getParent.getTitle()}}" onClick="window.location = '{{ path('list') }}?id={{XXX[selected_item - 1].getParent.getId()}}';">
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-primary mb-2">Uložit</button>
+                                        </form> 
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="headingTwo">
+                                    <h5 class="mb-0">
+                                        <label class="lead">Nákupní informace o položce</label>
+                                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">                 
+                                            <span aria-hidden="true">&#9661;</span>
+                                        </button>
+                                </div>
+                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                    <div class="card-body">
+
+                                        <form>
+                                            <div class="form-group row">
+                                                <label for="type_code" class="col-sm-2 col-form-label">Kód položky</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text"  class="form-control" id="item_name" value="{{XXX[selected_item-1].getType().getCode()}}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="type_label" class="col-sm-2 col-form-label">Popis typu:</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text"  class="form-control" id="type_label" placeholder="{{XXX[selected_item-1].getType().getName()}}">
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary mb-2">Uložit</button>
+                                        </form>               
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="headingThree">
+                                    <label class="lead">Ostatní informace o položce</label>
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseOne">                 
+                                        <span aria-hidden="true">&#9661;</span>
+                                    </button>
+                                </div>
+                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <form>
+                                            <div class="form-group row">
+                                                <label for="user" class="col-sm-2 col-form-label">Uživatel</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text"  readonly class="form-control" id="user" value="{{XXX[selected_item-1].getUser().getFirstname()}} {{XXX[selected_item-1].getUser().getSurename()}}">
+                                                </div>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-primary mb-2">Uložit</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>Vyberte položku ze stromu. </strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endif %}
+
+
+
                 </div> 
-                
+
             </div>
         {% endif %}
         {% if app.user == null %}

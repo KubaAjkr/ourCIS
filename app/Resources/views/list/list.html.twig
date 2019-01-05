@@ -22,6 +22,11 @@
 {% endblock %}
 
 {% block body %}
+    <style>
+        .mylist {
+            margin: 15px;
+        }
+    </style>
     {% if app.user != null %}
         <div class="card-body" >    
             <div class="row">  
@@ -53,9 +58,9 @@
                 <div class="col col-10" id="main-panel">
 
                     {% if selected_item >= 1 %}
-                        <style>.card-body {margin:15px;}</style>
+                        <!--style>.card-body {margin:15px;}</style-->
                         <div id="accordion">
-                            <div class="card">
+                            <div class="card ">
                                 <div class="card-header" id="headingOne">
                                     <h5 class="mb-0">
                                         <label class="lead">Obecné informace o položce</label>
@@ -66,7 +71,7 @@
                                 </div>
 
                                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                                    <div class="card-body">
+                                    <div class="card-body mylist">
 
                                         <form>
                                             <div class="form-group row">
@@ -101,7 +106,9 @@
                                                 </div>
                                             </div>
 
-                                            <button type="submit" class="btn btn-primary mb-2">Uložit</button>
+                                                <div class="col-1 offset-11">
+                                                    <button type="submit" class="btn btn-primary btn-block">Uložit</button>
+                                                </div>
                                         </form> 
 
                                     </div>
@@ -116,7 +123,7 @@
                                         </button>
                                 </div>
                                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                                    <div class="card-body">
+                                    <div class="card-body mylist">
 
                                         <form>
                                             <div class="form-group row">
@@ -131,7 +138,9 @@
                                                     <input type="text"  class="form-control" id="type_label" placeholder="{{XXX[selected_item-1].getType().getName()}}">
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary mb-2">Uložit</button>
+                                                <div class="col-1 offset-11">
+                                                    <button type="submit" class="btn btn-primary btn-block">Uložit</button>
+                                                </div>
                                         </form>               
                                     </div>
                                 </div>
@@ -144,7 +153,7 @@
                                     </button>
                                 </div>
                                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                                    <div class="card-body">
+                                    <div class="card-body mylist">
                                         <form>
                                             <div class="form-group row">
                                                 <label for="user" class="col-sm-2 col-form-label">Uživatel</label>
@@ -152,8 +161,9 @@
                                                     <input type="text"  readonly class="form-control" id="user" value="{{XXX[selected_item-1].getUser().getFirstname()}} {{XXX[selected_item-1].getUser().getSurename()}}">
                                                 </div>
                                             </div>
-
-                                            <button type="submit" class="btn btn-primary mb-2">Uložit</button>
+                                                <div class="col-1 offset-11">
+                                                    <button type="submit" class="btn btn-primary btn-block">Uložit</button>
+                                                </div>
                                         </form>
                                     </div>
                                 </div>

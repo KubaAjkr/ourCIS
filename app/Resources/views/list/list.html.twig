@@ -106,9 +106,9 @@
                                                 </div>
                                             </div>
 
-                                                <div class="col-1 offset-11">
-                                                    <button type="submit" class="btn btn-primary btn-block">Uložit</button>
-                                                </div>
+                                            <div class="col-1 offset-11">
+                                                <button type="submit" class="btn btn-primary btn-block">Uložit</button>
+                                            </div>
                                         </form> 
 
                                     </div>
@@ -138,9 +138,9 @@
                                                     <input type="text"  class="form-control" id="type_label" placeholder="{{XXX[selected_item-1].getType().getName()}}">
                                                 </div>
                                             </div>
-                                                <div class="col-1 offset-11">
-                                                    <button type="submit" class="btn btn-primary btn-block">Uložit</button>
-                                                </div>
+                                            <div class="col-1 offset-11">
+                                                <button type="submit" class="btn btn-primary btn-block">Uložit</button>
+                                            </div>
                                         </form>               
                                     </div>
                                 </div>
@@ -156,14 +156,19 @@
                                     <div class="card-body mylist">
                                         <form>
                                             <div class="form-group row">
-                                                <label for="user" class="col-sm-2 col-form-label">Uživatel</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text"  readonly class="form-control" id="user" value="{{XXX[selected_item-1].getUser().getFirstname()}} {{XXX[selected_item-1].getUser().getSurename()}}">
-                                                </div>
+                                            <label for="user" class="col-sm-2 col-form-label">Uživatel:</label>
+                                            <div class="col-sm-4">
+                                                <input type="text" readonly class="form-control" id="user" placeholder="{{XXX[selected_item-1].getUser().getFirstname()}} {{XXX[selected_item-1].getUser().getSurename()}}">
                                             </div>
-                                                <div class="col-1 offset-11">
-                                                    <button type="submit" class="btn btn-primary btn-block">Uložit</button>
-                                                </div>
+                                            <label for="created" class="col-sm-2 col-form-label">Vytvořen::</label>
+                                            <div class="col-sm-4">
+                                                <input type="text" readonly class="form-control" id="created" placeholder="{{XXX[selected_item-1].getUser().getCreated()}}">
+                                            </div>                                            
+
+                                            </div>
+                                            <div class="col-1 offset-11">
+                                                <button type="submit" class="btn btn-primary btn-block">Uložit</button>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>

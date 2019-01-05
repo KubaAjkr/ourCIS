@@ -2,19 +2,14 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Item;
-use AppBundle\Entity\User;
-use AppBundle\Entity\Type;
-//use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 class ListController extends Controller {
 
     private $list;
-    private $em;
+    //private $em;
     private $itemsRows;
 
     private function getListFromDB($contract) {
@@ -27,31 +22,23 @@ class ListController extends Controller {
                         )->setParameter('contractId', $contract);
 
         $this->list = $query->getResult();
-        $query = $this->get('doctrine')->getManager()
+        $query_count = $this->get('doctrine')->getManager()
                         ->createQuery(
                                 'SELECT COUNT(i.id)FROM AppBundle:Item i
                                 JOIN i.user u
                                 WHERE i.contract_id = :contractId '
                         )->setParameter('contractId', $contract);
-        $this->itemsRows = $query->getSingleScalarResult();
+        $this->itemsRows = $query_count->getSingleScalarResult();
     }
-    
-    private function getTitleFromDB($id) {
-
-         $item = $this->getDoctrine()
-          ->getRepository(Item::class)
-          ->find($id);
-    return($item);
-    }
-
-    /**
+   /**
      * @Route("/list", name="list")
      */
     public function showAction(Request $request) {
 
+        /*  
         $em = $this->getDoctrine()->getManager();
 
-          /*          
+                  
           $user = $this->getDoctrine()
           ->getRepository(User::class)
           ->find(1);

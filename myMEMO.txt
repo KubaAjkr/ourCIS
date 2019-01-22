@@ -7,3 +7,6 @@ http://symfony.com/
 
 #XLS integration
 https://phpspreadsheet.readthedocs.io/en/develop/
+
+#Icony
+https://fontawesome.com/icons?d=gallery

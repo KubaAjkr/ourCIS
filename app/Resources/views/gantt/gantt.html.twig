@@ -1,0 +1,55 @@
+
+{% extends 'base.html.twig' %}
+
+{% block header %}
+
+        
+ 
+
+    {% include '/navbar.html.twig' %}
+
+
+
+{% endblock %}
+
+{% block body %}
+    <style>
+        .mylist {
+            margin: 15px;
+        }
+
+        </style>
+    {% if app.user != null %}
+        
+
+
+<div class="col resizable" id="one">one</div>
+<div class="col resizable" id="two">two</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.3.5/split.min.js">
+</script>
+                <script>
+Split(['#one', '#two'], {
+  sizes: [500, 100],
+  minSize: 200
+});
+        </script>
+ 
+  
+
+
+
+        {% endif %}
+        {% if app.user == null %}
+            <div class="alert alert-info" role="alert">
+                This is a info alert with <a href="{{ path('login') }}" class="alert-link">K aplikaci je třeba se přihlásit >></a>
+            </div>
+        {% endif %}
+    </div>
+    {#{{ tree|raw }}#}
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}

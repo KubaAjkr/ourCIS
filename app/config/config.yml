@@ -85,4 +85,10 @@ stof_doctrine_extensions:
                 default:
                     tree: true
                     timestampable: true
+           
+sensio_framework_extra:
+
+    router:
+
+        annotations: false
     

@@ -2,7 +2,7 @@
 namespace AppBundle\Security;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -15,9 +15,7 @@ use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticato
 use Symfony\Component\Security\Core\Security;
 
 
-use AppBundle\Form\LoginForm;
-use Doctrine\ORM\EntityManager;
-use Symfony\Component\Form\FormFactoryInterface;
+
 //use Symfony\Component\HttpFoundation\Request;
 //use Symfony\Component\Routing\RouterInterface;
 //use Symfony\Component\Security\Core\Security;
